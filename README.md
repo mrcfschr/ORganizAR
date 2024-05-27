@@ -22,7 +22,8 @@ pip install -r requirements.txt
   
 ![integrationgif](https://github.com/mrcfschr/ORganizAR/assets/57159035/daa3b720-da89-4452-969d-5596a36d0ea0)
 - full video of final reconstruction based of live real-time data: https://drive.google.com/file/d/1UQcPHjkYZQimqTq96i-xyh11i3Llk3oz/view?usp=sharing
-- TODO feed into network, relay to Unity, also visualize reconstruction progress to guide user's view
+- TODO feed into network(https://github.com/yangcaoai/CoDA_NeurIPS2023), optimize camera settings for network?, relay to Unity, also visualize reconstruction progress to guide user's view, obstacle avoidance, route guidance, develop UI further
+
 
 <details>
   <summary>Unity Side Setup (deploy Horus Scene to HoloLens) and other documentation from HoloLens 2 Sensor Streaming</summary>
