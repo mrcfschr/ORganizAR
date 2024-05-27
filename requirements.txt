@@ -1,0 +1,7 @@
+pynput
+numpy
+open3d
+opencv-python
+av
+pyaudio
+Pillow
