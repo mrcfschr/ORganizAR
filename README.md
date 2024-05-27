@@ -2,8 +2,8 @@
 
 # Create and activate a new Conda environment and make sure pip up to date
 ```
-conda create --name horus python=3.10.13
-conda activate horus
+conda create --name organizar python=3.10.13
+conda activate organizar
 python -m pip install --upgrade pip
 ```
 
@@ -13,10 +13,16 @@ pip install -r requirements.txt
 ```
 
 # Using the app
-- set hl ip, calib path, (host) at to of the file you are running
-- mar_simple_player.py shows recorded dataset https://drive.google.com/file/d/1MfWjMjsjJU1M9kBvx0dC8O5YyjcCmlVN/view?usp=sharing
+- set hl ip, calib path, data path at top of the file you are running
+- mar_simple_player.py shows recorded dataset:
+  
+![ezgif-2-b9b2dd4bda](https://github.com/mrcfschr/ORganizAR/assets/57159035/de67eaf0-969e-46b0-bdfd-892194197b99)
+- full video of playback: https://drive.google.com/file/d/1MfWjMjsjJU1M9kBvx0dC8O5YyjcCmlVN/view?usp=sharing
 - ORganizAR.py allows to do rgbd integration on both the recorded data and live data (set from_recording flag)
-- TODO feed into network, relay to Unity
+  
+![integrationgif](https://github.com/mrcfschr/ORganizAR/assets/57159035/daa3b720-da89-4452-969d-5596a36d0ea0)
+- full video of final reconstruction based of live real-time data: https://drive.google.com/file/d/1UQcPHjkYZQimqTq96i-xyh11i3Llk3oz/view?usp=sharing
+- TODO feed into network, relay to Unity, also visualize reconstruction progress to guide user's view
 
 <details>
   <summary>Unity Side Setup (deploy Horus Scene to HoloLens) and other documentation from HoloLens 2 Sensor Streaming</summary>
