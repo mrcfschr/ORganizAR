@@ -33,7 +33,7 @@ if wsl:
     visualization_enabled = False
     path_start = "/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/"
 elif remote_docker:
-    path_start = "/medar_smart"
+    path_start = "/medar_smart/"
 else:
     path_start = "C:/Users/Marc/Desktop/CS/MARPROJECT/"
 
