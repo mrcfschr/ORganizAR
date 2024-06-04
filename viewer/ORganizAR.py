@@ -20,6 +20,7 @@ from typing import List, Tuple, Any, Dict,Callable
 from lang_sam import LangSAM
 import PIL
 from PIL import Image
+import torch
 
 # Settings --------------------------------------------------------------------
 from_recording = True #set to run live on HL vs from recorded dataset
@@ -63,15 +64,16 @@ buffer_length = 10
 voxel_length = 1/100
 sdf_trunc = 0.04
 max_depth = 7 #3.0 in sample, changed to room size
-prompt =  "c arm, surgical tool, timer, bed"
-prompt =  "timer"
+
+prompts =  ["bed" , "pen", "timer", "chair", "backpack", "black computer monitor", "door", "coffee machine", "lamp"]
 #------------------------------------------------------------------------------
 def get_segmented_points(data_pv: Any,
                          data_depth: Any,
                          lt_scale: np.ndarray,
                          max_depth: int,
                          xy1: np.ndarray,
-                         calibration_lt: Any) -> Tuple[bool, np.ndarray]:
+                         calibration_lt: Any,
+                         prompt: str) -> Tuple[bool, np.ndarray]:
     """
     Retrieves segmented 3D points from images using lang-segment-anything. https://github.com/luca-medeiros/lang-segment-anything
 
@@ -101,25 +103,26 @@ def get_segmented_points(data_pv: Any,
     if masks == None or len(masks) == 0:
         print("nothing found")
         return False, np.array([])
-    
 
-    confidence_threshold = 0.5
+    confidence_threshold_cutoff = 0.3
+  
+    
     combined_mask = np.zeros(masks[0].shape, dtype=np.uint8)
     high_conf = 0
+    #TODO median max conf threshold
     for mask, logit in zip(masks, logits):
-        print(logit)
-        if logit >= confidence_threshold:
+        if logit >= confidence_threshold_cutoff:
             high_conf = logit
             mask_np = (mask.cpu().detach().numpy() * 255).astype(np.uint8)
             combined_mask = np.maximum(combined_mask, mask_np)
-    
+
     mask_3ch = cv2.merge([combined_mask, combined_mask, combined_mask])
     image_rgb = cv2.cvtColor(data_pv.payload.image, cv2.COLOR_BGR2RGB)
     alpha = 0.5
     overlay = cv2.addWeighted(image_rgb, 1, mask_3ch, alpha, 0)
     overlay_bgr = cv2.cvtColor(overlay, cv2.COLOR_RGB2BGR)
     if high_conf > 0:
-        cv2.imwrite(save_path_rgb+"mask"+str(high_conf)+".png", overlay_bgr)
+        cv2.imwrite(save_path_rgb+"mask"+prompt+str(high_conf)+".png", overlay_bgr)
 
     points = hl2ss_3dcv.rm_depth_to_points(depth, xy1)
     depth_to_world = hl2ss_3dcv.camera_to_rignode(calibration_lt.extrinsics) @ hl2ss_3dcv.reference_to_world(data_depth.pose)
@@ -262,7 +265,8 @@ if __name__ == '__main__':
             # get boxes of hardcoded objects we want to detect e.g. c arm
             # get segmentation mask of boxes with highest confidence 
             # for proof of concept just use lang sam
-            ret, points = get_segmented_points(data_pv, data_lt, scale, max_depth, xy1, calibration_lt)
+            for prompt in prompts:
+                ret, points = get_segmented_points(data_pv, data_lt, scale, max_depth, xy1, calibration_lt, prompt)
             # render integrated point cloud one detected object at a time
 
             # Update PV intrinsics ------------------------------------------------
@@ -304,9 +308,9 @@ if __name__ == '__main__':
             
                 vis.poll_events()
                 vis.update_renderer()
-            # print(counter_selected)         #23 286
-            # print(counter_all)            
-            # print(counter_selected/counter_all)
+            print(counter_selected)         #23 286
+            print(counter_all)            
+            print(counter_selected/counter_all)
   
     if from_recording:
         rd_pv.close()
