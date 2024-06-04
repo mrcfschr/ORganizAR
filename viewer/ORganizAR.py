@@ -27,10 +27,13 @@ from_recording = True #set to run live on HL vs from recorded dataset
 visualization_enabled = False
 write_data = False
 wsl = True
+remote_docker = True
 
 if wsl:
     visualization_enabled = False
     path_start = "/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/"
+elif remote_docker:
+    path_start = "/medar_smart"
 else:
     path_start = "C:/Users/Marc/Desktop/CS/MARPROJECT/"
 
