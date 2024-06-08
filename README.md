@@ -18,7 +18,8 @@ pip install -r requirements.txt
   
 ![ezgif-2-b9b2dd4bda](https://github.com/mrcfschr/ORganizAR/assets/57159035/de67eaf0-969e-46b0-bdfd-892194197b99)
 - full video of playback: https://drive.google.com/file/d/1MfWjMjsjJU1M9kBvx0dC8O5YyjcCmlVN/view?usp=sharing
-- ORganizAR.py allows to do rgbd integration on both the recorded data and live data (set from_recording flag)
+- reconstruction.py allows to do rgbd integration on both the recorded data and live data (set from_recording flag)
+- for mvp using langsam and clip see ORganizAR.py
   
 ![integrationgif](https://github.com/mrcfschr/ORganizAR/assets/57159035/daa3b720-da89-4452-969d-5596a36d0ea0)
 - full video of final reconstruction based of live real-time data: https://drive.google.com/file/d/1UQcPHjkYZQimqTq96i-xyh11i3Llk3oz/view?usp=sharing
