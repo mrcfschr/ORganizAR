@@ -27,6 +27,9 @@ pip install -r requirements.txt
 # Using docker on remote machine
 Use either `nvcr.io/nvidia/pytorch:23.09-py3` image for pure pytorch environment, or `coda:23.09-py3.10-tensorboardx` with all CoDA dependencies installed.
 
+`orgnizar:lang_sam` image is now available with opencv and lang_sam installed. 
+***TODO: add open3d in this docker***
+
 To start a docker container from image, run the following command:
 ```
 docker run --gpus all --ipc=host  -it --rm -p 6002-6008:6002-6008 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY -v /data/projects/medar_smart:/medar_smart YOUR_IMAGE_NAME:YOUR_TAG
