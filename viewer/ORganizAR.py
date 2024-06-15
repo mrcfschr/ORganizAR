@@ -47,7 +47,7 @@ path = path_start + 'viewer/data'
 calibration_path: str = path_start + 'calibration/rm_depth_longthrow/'
 
 #rgb images from recorded data
-save_path_rgb = "viewer/data/debug/"
+write_data_path = "viewer/data/debug/"
 
 # Camera parameters
 pv_width = 640
@@ -125,7 +125,7 @@ def get_segmented_points(data_pv: Any,
     overlay = cv2.addWeighted(image_rgb, 1, mask_3ch, alpha, 0)
     overlay_bgr = cv2.cvtColor(overlay, cv2.COLOR_RGB2BGR)
     if high_conf > 0:
-        cv2.imwrite(save_path_rgb+"mask"+prompt+str(high_conf)+".png", overlay_bgr)
+        cv2.imwrite(write_data_path+"mask"+prompt+str(high_conf)+".png", overlay_bgr)
 
     points = hl2ss_3dcv.rm_depth_to_points(depth, xy1)
     depth_to_world = hl2ss_3dcv.camera_to_rignode(calibration_lt.extrinsics) @ hl2ss_3dcv.reference_to_world(data_depth.pose)
@@ -263,7 +263,7 @@ if __name__ == '__main__':
         if image_isNovel_view:
             counter_selected +=1
             if write_data:
-                cv2.imwrite(save_path_rgb + str(data_pv.timestamp) +".png", img)
+                cv2.imwrite(write_data_path + str(data_pv.timestamp) +".png", img)
             # async
             # get boxes of hardcoded objects we want to detect e.g. c arm
             # get segmentation mask of boxes with highest confidence 
@@ -286,7 +286,7 @@ if __name__ == '__main__':
             pv_uv             = hl2ss_3dcv.project(world_points, world_to_pv_image)
             color             = cv2.remap(color, pv_uv[:, :, 0], pv_uv[:, :, 1], cv2.INTER_LINEAR)
             if write_data:
-                cv2.imwrite(save_path_rgb + "_depth_aligned_"+str(data_pv.timestamp) +".png", color)
+                cv2.imwrite(write_data_path + "_depth_aligned_"+str(data_pv.timestamp) +".png", color)
             mask_uv = hl2ss_3dcv.slice_to_block((pv_uv[:, :, 0] < 0) | (pv_uv[:, :, 0] >= pv_width) | (pv_uv[:, :, 1] < 0) | (pv_uv[:, :, 1] >= pv_height))
             depth[mask_uv] = 0
 

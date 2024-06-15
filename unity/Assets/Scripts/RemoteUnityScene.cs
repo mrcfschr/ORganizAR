@@ -5,24 +5,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Microsoft.MixedReality.Toolkit.Audio;
+using System.Reflection;
 
 public class RemoteUnityScene : MonoBehaviour
 {
     public GameObject m_tts;
 
-    private Dictionary<int, GameObject> m_remote_objects;
+    private Dictionary<int, GameObject> m_remote_objects = new Dictionary<int, GameObject>();
     private bool m_loop;
     private bool m_mode;
     private int m_last_key;
+    private GameObject arrowPrefab;
+    private AudioSource audioSource;
 
     [Tooltip("Set to BasicMaterial to support semi-transparent primitives.")]
     public Material m_material;
 
     void Start()
     {
-        m_remote_objects = new Dictionary<int, GameObject>();
+        //m_remote_objects = new Dictionary<int, GameObject>();
         m_loop = false;
         m_mode = false;
+        arrowPrefab = Resources.Load<GameObject>("3D RightArrow");
+        audioSource = Resources.Load<AudioSource>("SpatialAudioSource");
+
     }
 
     void Update()
@@ -40,7 +46,7 @@ public class RemoteUnityScene : MonoBehaviour
         return true;
     }
 
-    uint ProcessMessage(uint command, byte[] data)
+    public uint ProcessMessage(uint command, byte[] data)
     {
         uint ret = 0;
 
@@ -170,6 +176,28 @@ public class RemoteUnityScene : MonoBehaviour
         go.GetComponent<Renderer>().material = m_material;
         go.SetActive(false);
 
+        if (t == PrimitiveType.Sphere)
+        {
+            // Load and instantiate the arrow prefab as a child of 'go'
+            GameObject arrowPrefab = Resources.Load<GameObject>("3D RightArrow");
+            GameObject arrowInstance = GameObject.Instantiate(arrowPrefab, go.transform.position, Quaternion.identity, go.transform);
+
+            // Set initial visibility of the arrow
+            Renderer arrowRenderer = arrowInstance.GetComponent<Renderer>();
+            if (arrowRenderer != null)
+            {
+                arrowRenderer.enabled = false;  // Make arrow invisible initially
+            }
+
+            // Load audio source, add it to 'go', and configure it
+            AudioSource preConfiguredSource = Resources.Load<AudioSource>("SpatialAudioSource");
+            Instantiate(preConfiguredSource, go.transform);
+            go.AddComponent<ActivateAudio>();
+
+            // Align local x-axis of the arrow prefab with the world y-axis
+            arrowInstance.transform.rotation = Quaternion.FromToRotation(Vector3.right, Vector3.up);
+        }
+
         return AddGameObject(go);
     }
 
@@ -181,7 +209,62 @@ public class RemoteUnityScene : MonoBehaviour
         GameObject go;
         if (!m_remote_objects.TryGetValue(GetKey(data), out go)) { return 0; }
 
-        go.SetActive(BitConverter.ToInt32(data, 4) != 0);
+        // Set game object active or inactive based on the data.
+        bool isActive = BitConverter.ToInt32(data, 4) != 0;
+        go.SetActive(isActive);
+
+        // If the game object is being activated, handle additional components.
+        if (isActive)
+        {
+            // Enable the Renderer for the arrow prefab which is a child of the first child of 'go'
+            Transform firstChild = go.transform.childCount > 0 ? go.transform.GetChild(0) : null;
+            if (firstChild != null)
+            {
+                Transform arrowPrefabTransform = firstChild.Find("child"); // Adjust the name to match the child object name
+                if (arrowPrefabTransform != null)
+                {
+                    Renderer arrowRenderer = arrowPrefabTransform.GetComponent<Renderer>();
+                    if (arrowRenderer != null)
+                    {
+                        arrowRenderer.enabled = true;
+                    }
+                }
+            }
+
+            // Play the AudioSource if it exists on 'go'
+            AudioSource audioSource = go.GetComponent<AudioSource>();
+            if (audioSource != null && !audioSource.isPlaying)
+            {
+                audioSource.enabled = true;
+                audioSource.Play();
+                audioSource.loop = true;
+                audioSource.spatialize = true;
+            }
+        }
+        else
+        {
+            // When deactivating, ensure to disable components as needed
+            Transform firstChild = go.transform.childCount > 0 ? go.transform.GetChild(0) : null;
+            if (firstChild != null)
+            {
+                Transform arrowPrefabTransform = firstChild.Find("ArrowPrefabName");
+                if (arrowPrefabTransform != null)
+                {
+                    Renderer arrowRenderer = arrowPrefabTransform.GetComponent<Renderer>();
+                    if (arrowRenderer != null)
+                    {
+                        arrowRenderer.enabled = false;
+                    }
+                }
+            }
+
+            AudioSource audioSource = go.GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.Stop();
+                audioSource.enabled = false;
+            }
+        }
 
         return 1;
     }
