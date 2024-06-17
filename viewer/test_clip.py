@@ -2,10 +2,15 @@ import torch
 import clip
 from PIL import Image
 
+IF_REMOTE = True
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
-image = preprocess(Image.open("/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_timer.png")).unsqueeze(0).to(device)
+if IF_REMOTE:
+    image_path = "/medar_smart/ORganizAR/viewer/test_timer.png"
+else:
+    image_path = "/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_timer.png"	
+image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
 text = clip.tokenize(["a timer"]).to(device)
 
 with torch.no_grad():

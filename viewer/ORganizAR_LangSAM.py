@@ -2,7 +2,6 @@
 import time
 import numpy as np
 import cv2
-from pynput import keyboard
 import multiprocessing as mp
 import open3d as o3d
 import hl2ss
@@ -20,17 +19,21 @@ import torch
 import clip
 
 # Settings --------------------------------------------------------------------
-from_recording = False #set to run live on HL vs from recorded dataset
+from_recording = True #set to run live on HL vs from recorded dataset
 visualization_enabled = False
 write_data = True
-wsl = True
+wsl = False
 remote_docker = True
 
+if not remote_docker:
+    from pynput import keyboard
+    
+    
 if wsl:
     visualization_enabled = False
     path_start = "/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/"
 elif remote_docker:
-    path_start = "/medar_smart/"
+    path_start = "/medar_smart/ORganizAR/"
 else:
     path_start = "C:/Users/Marc/Desktop/CS/MARPROJECT/"
 
@@ -44,7 +47,7 @@ path = path_start + 'viewer/data'
 calibration_path: str = path_start + 'calibration/rm_depth_longthrow/'
 
 #rgb images from recorded data
-write_data_path = "viewer/data/debug/"
+write_data_path = "viewer/data/debug_save/"
 
 # Camera parameters
 pv_width = 640
@@ -67,18 +70,25 @@ model_clip, preprocess_clip = clip.load("ViT-B/32", device=device_search)
 model_clip = model_clip.to(device_search)
 
 # Test data setup
-image_pil_timer = Image.open("/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_timer.png")
-image_pil_bed = Image.open("/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_bed.png")
+if remote_docker:
+    timer_image_path = "/medar_smart/ORganizAR/viewer/test_timer.png"
+    bed_image_path = "/medar_smart/ORganizAR/viewer/test_bed.png"
+else:
+    timer_image_path = "/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_timer.png"
+    bed_image_path = "/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_bed.png"
+    
+image_pil_timer = Image.open(timer_image_path)
+image_pil_bed = Image.open(bed_image_path)
 prompts = ["timer","bed","monitors", "orange pen", "keyboard"]
 images = [image_pil_timer,image_pil_bed]
 
 data = {}
 CLIP_SIM_THRESHOLD = 0.6
-DINO_THRESHOLD = 0.2
+DINO_THRESHOLD = 0.35
 MIN_FRAME_NUM = 15
 enable = True
 
-#unity pc vis secction
+# unity pc vis secction
 # quad scale in meters
 quad_scale: List[float] = [0.005, 0.005, 0.005]
 sphere_scale: List[float] = [0.001, 0.001, 0.001]
@@ -288,10 +298,11 @@ def instantiate_gos(ipc: hl2ss.ipc_umq) -> np.ndarray:
     return results #ids
 
 if __name__ == '__main__':
-    # Keyboard events ---------------------------------------------------------
-    enable = True
-    listener = keyboard.Listener(on_press=on_press)
-    listener.start()
+    if not remote_docker:
+        # Keyboard events ---------------------------------------------------------
+        enable = True
+        listener = keyboard.Listener(on_press=on_press)
+        listener.start()
 
     if from_recording:
         # Create readers --------------------------------------------------------------
@@ -460,8 +471,10 @@ if __name__ == '__main__':
 
         # Stop PV subsystem -------------------------------------------------------
         hl2ss_lnm.stop_subsystem_pv(host, hl2ss.StreamPort.PERSONAL_VIDEO)
-    # Stop keyboard events ----------------------------------------------------
-    listener.join()
+        
+    if not remote_docker:    
+        # Stop keyboard events ----------------------------------------------------
+        listener.join()
     
     
 

@@ -2,9 +2,18 @@ from lang_sam import LangSAM
 from PIL import Image
 import time
 
+IF_REMOTE = True
+
+if IF_REMOTE:
+    timer_image_path = "/medar_smart/ORganizAR/viewer/test_timer.png"
+    bed_image_path = "/medar_smart/ORganizAR/viewer/test_bed.png"
+else:
+    timer_image_path = "/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_timer.png"
+    bed_image_path = "/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_bed.png"
+    
 model_LangSAM = LangSAM()
-image_pil_timer = Image.open("/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_timer.png")
-image_pil_bed = Image.open("/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_bed.png")
+image_pil_timer = Image.open(timer_image_path)
+image_pil_bed = Image.open(bed_image_path)
 
 images = {'timer': image_pil_timer, 'bed': image_pil_bed}
 box_threshold = 0.3
