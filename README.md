@@ -19,11 +19,11 @@ pip install -r requirements.txt
 ![ezgif-2-b9b2dd4bda](https://github.com/mrcfschr/ORganizAR/assets/57159035/de67eaf0-969e-46b0-bdfd-892194197b99)
 - full video of playback: https://drive.google.com/file/d/1MfWjMjsjJU1M9kBvx0dC8O5YyjcCmlVN/view?usp=sharing
 - reconstruction.py allows to do rgbd integration on both the recorded data and live data (set from_recording flag)
-- for mvp using langsam and clip see ORganizAR.py
-  
+
 ![integrationgif](https://github.com/mrcfschr/ORganizAR/assets/57159035/daa3b720-da89-4452-969d-5596a36d0ea0)
 - full video of final reconstruction based of live real-time data: https://drive.google.com/file/d/1UQcPHjkYZQimqTq96i-xyh11i3Llk3oz/view?usp=sharing
-- TODO feed into network(https://github.com/yangcaoai/CoDA_NeurIPS2023), optimize camera settings for network?, relay to Unity, also visualize reconstruction progress to guide user's view, obstacle avoidance, route guidance, develop UI further
+
+- for mvp using langsam and clip see ORganizAR_LangSAM.py https://drive.google.com/file/d/1ClUKq9olohGyWB9jhLV8bFvrOwVMUIJL/view?usp=sharing
 
 # Using docker on remote machine
 Use either `nvcr.io/nvidia/pytorch:23.09-py3` image for pure pytorch environment, or `coda:23.09-py3.10-tensorboardx` with all CoDA dependencies installed.
@@ -39,7 +39,7 @@ docker run --gpus all --ipc=host  -it --rm -p 6002-6008:6002-6008 -v /tmp/.X11-u
 The `/data/projects/medar_smart` directory will be mounted to `/medar_smart` inside the container. So please put all the files under that path. The created container will be deleted after exiting.
 
 <details>
-  <summary>Unity Side Setup (deploy Horus Scene to HoloLens) and other documentation from HoloLens 2 Sensor Streaming</summary>
+  <summary>Unity Side Setup (deploy ORganizAR Scene to HoloLens) and other documentation from HoloLens 2 Sensor Streaming</summary>
 
 HoloLens 2 server software and Python client library for streaming sensor data via TCP. Created to stream HoloLens data in real time over WiFi to a Linux machine for research purposes but also works on Windows and macOS. The server is offered as a standalone application (appxbundle) or Unity plugin (dll).
 
