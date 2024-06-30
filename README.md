@@ -12,6 +12,12 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+# Insatall Lang-SAM Dependencies
+```
+pip install torch torchvision
+pip install -U git+https://github.com/luca-medeiros/lang-segment-anything.git
+```
+
 # Using the app
 - set hl ip, calib path, data path at top of the file you are running
 - mar_simple_player.py shows recorded dataset:
