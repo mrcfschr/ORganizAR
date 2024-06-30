@@ -1,3 +1,4 @@
 lang-segment-anything/
-
+*.zip
+viewer/recorded_data
 __pycache__

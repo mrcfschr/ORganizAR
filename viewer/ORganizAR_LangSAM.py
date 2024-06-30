@@ -2,6 +2,7 @@
 import time
 import numpy as np
 import cv2
+from pynput import keyboard
 import multiprocessing as mp
 import open3d as o3d
 import hl2ss
@@ -17,37 +18,37 @@ import PIL
 from PIL import Image
 import torch
 import clip
+import os
 
 # Settings --------------------------------------------------------------------
 from_recording = True #set to run live on HL vs from recorded dataset
 visualization_enabled = False
 write_data = True
 wsl = False
-remote_docker = True
+remote_docker = False
 
-if not remote_docker:
-    from pynput import keyboard
-    
-    
 if wsl:
     visualization_enabled = False
     path_start = "/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/"
 elif remote_docker:
-    path_start = "/medar_smart/ORganizAR/"
+    path_start = "/medar_smart/"
 else:
-    path_start = "C:/Users/Marc/Desktop/CS/MARPROJECT/"
+    path_start = "/Users/haoyangsun/Documents/ORganizAR-main/"
+    print("start path: ", path_start)
 
 # HoloLens address
-host = '192.168.0.102'
+host = '192.168.160.253'
 
 # Directory containing the recorded data
-path = path_start + 'viewer/data'
+path = path_start + 'viewer/recorded_data/dataset1'
 
 # Directory containing the calibration data of the HoloLens
 calibration_path: str = path_start + 'calibration/rm_depth_longthrow/'
 
 #rgb images from recorded data
-write_data_path = "viewer/data/debug_save/"
+write_data_path = "viewer/data/debug/ultrasound/"
+if os.path.exists(path_start+write_data_path) == False:
+    os.makedirs(path_start+write_data_path)
 
 # Camera parameters
 pv_width = 640
@@ -65,30 +66,25 @@ max_depth = 7 #3.0 in sample, changed to room size
 model_LangSAM = LangSAM()
 
 # Semantic search setup
-device_search = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device_search = torch.device("cuda" if torch.cuda.is_available() else "mps")
 model_clip, preprocess_clip = clip.load("ViT-B/32", device=device_search)
 model_clip = model_clip.to(device_search)
 
 # Test data setup
-if remote_docker:
-    timer_image_path = "/medar_smart/ORganizAR/viewer/test_timer.png"
-    bed_image_path = "/medar_smart/ORganizAR/viewer/test_bed.png"
-else:
-    timer_image_path = "/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_timer.png"
-    bed_image_path = "/mnt/c/Users/Marc/Desktop/CS/MARPROJECT/viewer/test_bed.png"
-    
-image_pil_timer = Image.open(timer_image_path)
-image_pil_bed = Image.open(bed_image_path)
-prompts = ["timer","bed","monitors", "orange pen", "keyboard"]
+image_pil_timer = Image.open(path_start+ "viewer/test_timer.png")
+image_pil_bed = Image.open(path_start+"/viewer/test_bed.png")
+prompts = ["ultra sound machine, that has flashlight shape probe attached and a machine tower"]
+# prompts = ["C-Arm, which has a large C-shaped arm and machine tower"]
+#prompts = ["C Arm", "Ultrasound Machine", "Laparoscopic Tower", "Chairs", "Table with blue cloth", "Patient Bed"]#["timer","bed","monitors", "orange pen", "keyboard"]
 images = [image_pil_timer,image_pil_bed]
 
 data = {}
 CLIP_SIM_THRESHOLD = 0.6
-DINO_THRESHOLD = 0.35
-MIN_FRAME_NUM = 15
+DINO_THRESHOLD = 0.2
+MIN_FRAME_NUM = 50
 enable = True
 
-# unity pc vis secction
+#unity pc vis secctiond
 # quad scale in meters
 quad_scale: List[float] = [0.005, 0.005, 0.005]
 sphere_scale: List[float] = [0.001, 0.001, 0.001]
@@ -213,6 +209,7 @@ def apply_clip_batch(prompt, max_results, threshold_percentage):
             box_data['sim_score'] = None
             if logit > DINO_THRESHOLD:
                 clip_embedded_img = box_data['embedding']
+                # stack the preprocessed images together and then producd
                 image_embeddings.append(clip_embedded_img)
                 box_references.append(box_data)
 
@@ -233,8 +230,9 @@ def apply_clip_batch(prompt, max_results, threshold_percentage):
             threshold_score = top_result_score - (top_result_score * threshold_percentage) #TODO filter also based on detection rate
             for box_data in box_references:
                 print(box_data['sim_score'])
-                if box_data['sim_score'] and box_data['sim_score'] >= threshold_score:
-                    box_data['top_result'] = True
+                box_data['top_result'] = True
+                #if box_data['sim_score'] and box_data['sim_score'] >= threshold_score:
+                #    box_data['top_result'] = True
                 # Limit to the maximum results specified
                 max_results -= 1
                 if max_results <= 0:
@@ -298,11 +296,10 @@ def instantiate_gos(ipc: hl2ss.ipc_umq) -> np.ndarray:
     return results #ids
 
 if __name__ == '__main__':
-    if not remote_docker:
-        # Keyboard events ---------------------------------------------------------
-        enable = True
-        listener = keyboard.Listener(on_press=on_press)
-        listener.start()
+    # Keyboard events ---------------------------------------------------------
+    enable = True
+    listener = keyboard.Listener(on_press=on_press)
+    listener.start()
 
     if from_recording:
         # Create readers --------------------------------------------------------------
@@ -365,6 +362,7 @@ if __name__ == '__main__':
 
     # Main Loop ---------------------------------------------------------------
     counter = 0
+    print("start detecting")
     while (enable):
         
         if from_recording:
@@ -396,11 +394,14 @@ if __name__ == '__main__':
         color_pil = Image.fromarray(color_np)
         (image_isNovel_view,index,img) = view_mana.new_view(color_np)
         if image_isNovel_view:
-            
+            # save selected images
+            #os.makedirs(path_start + write_data_path)
+            color_pil.save(path_start+ write_data_path + "selected_frame" + str(index) + ".jpeg")
             if counter < MIN_FRAME_NUM:
                 print(f"view: {counter}")
                 counter +=1
                 for prompt in data.keys():
+
                     boxes, logits, phrases = get_boxes(color_pil, prompt)
                     embedded_cropped_box_data = []
 
@@ -430,7 +431,7 @@ if __name__ == '__main__':
             for index, prompt in enumerate(data.keys()):
                 print(prompt)
                 apply_clip_batch(prompt,3,0.03)
-                print("actuslly used")
+                print("actually used")
                 data[prompt]["point_cloud"] = np.array([])
                 for timestamp, frame_data in data[prompt]['frames'].items():
                     for box_data in frame_data['boxes']:
@@ -442,7 +443,9 @@ if __name__ == '__main__':
                                 result = Image.blend(box_data["color_pil"], combined_mask_pil.convert("RGB"), alpha=0.5)
                                 score = box_data["sim_score"]
                                 logit = box_data["logit"]
-                                result.save(f"{path_start}{write_data_path}{prompt}clip{score}dino{logit}.jpeg")
+                                pharse = box_data["phrase"]
+                                print("saving to", f"{path_start}{write_data_path}{pharse}clip{score}dino{logit}.jpeg")
+                                result.save(f"{path_start}{write_data_path}{pharse}clip{score}dino{logit}.jpeg")
                             box_data["points"] = get_segmented_points(box_data, depth_scale, max_depth, xy1, calibration_lt)
                             if data[prompt]["point_cloud"].size == 0:
                                 data[prompt]["point_cloud"] = box_data["points"]
@@ -471,10 +474,8 @@ if __name__ == '__main__':
 
         # Stop PV subsystem -------------------------------------------------------
         hl2ss_lnm.stop_subsystem_pv(host, hl2ss.StreamPort.PERSONAL_VIDEO)
-        
-    if not remote_docker:    
-        # Stop keyboard events ----------------------------------------------------
-        listener.join()
+    # Stop keyboard events ----------------------------------------------------
+    listener.join()
     
     
 
