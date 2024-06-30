@@ -34,7 +34,7 @@ if wsl:
 elif remote_docker:
     path_start = "/medar_smart/"
 else:
-    path_start = "/Users/haoyangsun/Documents/ORganizAR-main/"
+    path_start = "/Users/haoyangsun/Documents/ORganizAR/"
     print("start path: ", path_start)
 
 # HoloLens address
@@ -47,7 +47,7 @@ path = path_start + 'viewer/recorded_data/dataset1'
 calibration_path: str = path_start + 'calibration/rm_depth_longthrow/'
 
 # rgb images from recorded data
-write_data_path = "viewer/data/debug_faster5/"
+write_data_path = "viewer/data/debug_faster9/"
 if os.path.exists(path_start + write_data_path) == False:
     os.makedirs(path_start + write_data_path)
 
@@ -74,9 +74,9 @@ model_clip = model_clip.to(device_search)
 # Test data setup
 image_pil_timer = Image.open(path_start + "viewer/test_timer.png")
 image_pil_bed = Image.open(path_start + "/viewer/test_bed.png")
-prompts = ["A table with blue cloth on it. a grey shelf with a pole on it. c - arm, which has a large C-shaped arm and machine tower. backpack. ultra sound machine, that has flashlight shape probe attached and a machine tower. wooden chair with metalic legs. black computer screen"]
+prompts = ["A table with blue cloth on it. a grey shelf with a pole on it. c arm, which is a medical machine with a large c shaped metal arm. backpack. ultra sound machine, that has flashlight shape probe attached and a machine tower. wooden chair with metalic legs. black computer screen"]
 
-prompts_lookup = ["A table with blue cloth on it","a grey shelf with a pole on it","c - arm, which has a large C-shaped arm and machine tower","backpack"," ultra sound machine, that has flashlight shape probe attached and a machine tower","wooden chair with metalic legs","black computer screen"]
+prompts_lookup = ["A table with blue cloth on it","a grey shelf with a pole on it","c arm, which is a medical machine with a large c shaped metal arm","backpack"," ultra sound machine, that has flashlight shape probe attached and a machine tower","wooden chair with metalic legs","black computer screen"]
 # prompts = ["C-Arm, which has a large C-shaped arm and machine tower"]
 # prompts = ["C Arm", "Ultrasound Machine", "Laparoscopic Tower", "Chairs", "Table with blue cloth", "Patient Bed"]#["timer","bed","monitors", "orange pen", "keyboard"]
 boxManager = PromptBoxManager(prompts, prompts_lookup)
@@ -86,7 +86,7 @@ images = [image_pil_timer, image_pil_bed]
 data = {}
 CLIP_SIM_THRESHOLD = 0.7
 DINO_THRESHOLD = 0.2
-MIN_FRAME_NUM = 10
+MIN_FRAME_NUM = 5
 enable = True
 
 # unity pc vis secctiond
