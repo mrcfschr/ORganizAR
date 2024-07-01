@@ -47,7 +47,7 @@ path = path_start + 'viewer/recorded_data/dataset1'
 calibration_path: str = path_start + 'calibration/rm_depth_longthrow/'
 
 # rgb images from recorded data
-write_data_path = "viewer/data/debug_faster9/"
+write_data_path = "viewer/data/debug_faster16/"
 if os.path.exists(path_start + write_data_path) == False:
     os.makedirs(path_start + write_data_path)
 
@@ -64,12 +64,10 @@ voxel_length = 1 / 100
 sdf_trunc = 0.04
 max_depth = 7  # 3.0 in sample, changed to room size
 
-model_LangSAM = LangSAM()
+
 
 # Semantic search setup
-device_search = torch.device("cuda" if torch.cuda.is_available() else "mps")
-model_clip, preprocess_clip = clip.load("ViT-B/32", device=device_search)
-model_clip = model_clip.to(device_search)
+device_search = torch.device("cuda:0" if torch.cuda.is_available() else "mps")
 
 # Test data setup
 image_pil_timer = Image.open(path_start + "viewer/test_timer.png")
@@ -79,6 +77,8 @@ prompts = ["A table with blue cloth on it. a grey shelf with a pole on it. c arm
 prompts_lookup = ["A table with blue cloth on it","a grey shelf with a pole on it","c arm, which is a medical machine with a large c shaped metal arm","backpack"," ultra sound machine, that has flashlight shape probe attached and a machine tower","wooden chair with metalic legs","black computer screen"]
 # prompts = ["C-Arm, which has a large C-shaped arm and machine tower"]
 # prompts = ["C Arm", "Ultrasound Machine", "Laparoscopic Tower", "Chairs", "Table with blue cloth", "Patient Bed"]#["timer","bed","monitors", "orange pen", "keyboard"]
+
+
 boxManager = PromptBoxManager(prompts, prompts_lookup)
 
 images = [image_pil_timer, image_pil_bed]
@@ -96,37 +96,9 @@ sphere_scale: List[float] = [0.001, 0.001, 0.001]
 total_quad_count: int = 500
 
 
-def get_boxes(image, prompt, box_threshold=0.3, text_threshold=0.25):
-    boxes, logits, phrases = model_LangSAM.predict_dino(image, prompt, box_threshold, text_threshold)
-    return boxes, logits, phrases
-
-
-def crop_image(image_pil, box):
-    left, upper, right, lower = [int(coordinate.item()) for coordinate in box]
-    cropped_image = image_pil.crop((left, upper, right, lower))
-    return cropped_image
-
-
-def apply_clip_embedding_image(image):
-    # query_image = preprocess_clip(image).unsqueeze(0).to(device_search)
-    query_image = preprocess_clip(image).to(device_search)
-    return query_image
-
-
 def apply_clip_embedding_prompt(prompt):
     text = clip.tokenize([prompt]).to(device_search)
     return text
-
-
-def get_mask(image, boxes):
-    masks = model_LangSAM.predict_sam(image, boxes)
-    masks = masks.squeeze(1)
-    masks_np = [mask.cpu().detach().numpy() for mask in masks]
-    masks_np = [(mask * 255).astype(np.uint8) for mask in masks_np]
-    combined_mask = np.zeros(masks_np[0].shape, dtype=np.uint8)
-    for mask in masks_np:
-        combined_mask = np.maximum(combined_mask, mask)
-    return combined_mask
 
 
 def set_up_data_struct(prompts):
@@ -138,32 +110,6 @@ def set_up_data_struct(prompts):
             'frames': {}  # This will store information per frame, to be populated later
         }
     return data
-
-
-def apply_clip_one_img(image, prompt):
-    with torch.no_grad():
-        # logits_per_image, logits_per_text = model_clip(image, prompt)
-        # probs = logits_per_image.softmax(dim=-1).cpu().numpy()
-        logits_per_image, _ = model_clip(image, prompt)  # tensor([[22.3750]], device='cuda:0', dtype=torch.float16)
-        logits_value = logits_per_image.cpu().numpy()
-        normalized_logits = (logits_value + 100) / 200
-        return normalized_logits
-
-
-def clip_calculate_similarity(prompt_embedding: torch.Tensor, image_embeddings: torch.Tensor) -> torch.Tensor:
-    """
-    Calculates the similarity between prompt embedding and image embeddings.
-
-    Args:
-    - prompt_embedding: Tensor containing embedding of the text prompt e.g. "right monitor" or "yellow bell pepper etc".
-    - image_embeddings: Tensor containing embeddings of the images of the users environment.
-
-    Returns:
-    - Tensor containing the similarities between prompt and image embeddings.
-    """
-    similariries = prompt_embedding @ image_embeddings.T
-    return similariries
-
 
 def display_point_cloud(points: np.ndarray, prompt_index: int) -> np.ndarray:
     """
@@ -216,55 +162,6 @@ def display_centroid(points: np.ndarray, prompt_index: int) -> np.ndarray:
 
     return ipc.pull(display_list)  # Get results from server
 
-
-def apply_clip_batch(prompt, max_results, threshold_percentage):
-    prompt_data = data[prompt]
-    query_tokens = prompt_data["tokenized_prompt"]
-    with torch.no_grad():
-        prompt_embedding = model_clip.encode_text(query_tokens)
-
-    image_embeddings = []
-    box_references = []
-    for _, frame_data in prompt_data['frames'].items():
-        for box_data in frame_data['boxes']:
-            logit = box_data['logit']
-            box_data['top_result'] = False
-            box_data['sim_score'] = None
-            if logit > DINO_THRESHOLD:
-                clip_embedded_img = box_data['embedding']
-                # stack the preprocessed images together and then producd
-                image_embeddings.append(clip_embedded_img)
-                box_references.append(box_data)
-
-    with torch.no_grad():
-        image_embeddings = model_clip.encode_image(torch.stack(image_embeddings))
-    sim = clip_calculate_similarity(prompt_embedding, image_embeddings)[0]
-    print("sim")
-    print(sim)
-    if (len(sim) > 0):
-        for box_data, score in zip(box_references, sim):
-            box_data['sim_score'] = score.item()
-        box_references.sort(key=lambda x: x['sim_score'], reverse=True)
-        top_result_score = box_references[0]['sim_score']
-        print("topscore:")
-        print(top_result_score)
-
-        for _, frame_data in prompt_data['frames'].items():
-            threshold_score = top_result_score - (
-                        top_result_score * threshold_percentage)  # TODO filter also based on detection rate
-            for box_data in box_references:
-                print(box_data['sim_score'])
-                box_data['top_result'] = True
-                # if box_data['sim_score'] and box_data['sim_score'] >= threshold_score:
-                #    box_data['top_result'] = True
-                # Limit to the maximum results specified
-                max_results -= 1
-                if max_results <= 0:
-                    break
-            if max_results <= 0:
-                break
-
-
 def on_press(key):
     global enable
     enable = key != keyboard.Key.esc
@@ -304,29 +201,6 @@ def get_segmented_points(box_data, lt_scale, max_depth, xy1, calibration_lt):
                        borderValue=0)  # pixels outside to 0
     points_mask = labels == 255
     return points[points_mask]
-
-
-def instantiate_gos(ipc: hl2ss.ipc_umq) -> np.ndarray:
-    """
-    Instantiates quads on the server and returns their IDs.
-
-    Args:
-    - ipc: The interprocess communication object.
-
-    Returns:
-    - An array containing the IDs of the instantiated quads so we can later change their transforms, toggle their visibility etc.
-    """
-    global total_quad_count
-    display_list = hl2ss_rus.command_buffer()
-    display_list.begin_display_list()  # Begin command sequence
-    display_list.remove_all()  # Remove all objects that were created remotely
-    for i in range(total_quad_count):
-        display_list.create_primitive(hl2ss_rus.PrimitiveType.Sphere)  # Create a quad, server will return its id
-    display_list.end_display_list()  # End command sequence
-    ipc.push(display_list)  # Send commands to server
-    results = ipc.pull(display_list)  # Get results from server
-    return results  # ids
-
 
 if __name__ == '__main__':
     # Keyboard events ---------------------------------------------------------
@@ -433,15 +307,11 @@ if __name__ == '__main__':
         color_pil = Image.fromarray(color_np)
         (image_isNovel_view, index, img) = view_mana.new_view(color_np)
         if image_isNovel_view:
-            # save selected images
-            # os.makedirs(path_start + write_data_path)
             print("saving frame ", str(counter))
             color_pil.save(path_start + write_data_path + "selected_frame" + str(counter) + ".jpeg")
-            if counter < MIN_FRAME_NUM:
-                print(f"view: {counter}")
-                counter += 1
             boxManager.new_frame(color_pil)
             boxManager.output_det()
+            counter += 1
     # shutdown server
     if from_recording:
         rd_pv.close()

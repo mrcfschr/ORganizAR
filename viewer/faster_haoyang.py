@@ -3,6 +3,7 @@ import pdb
 import torch
 import clip
 from lang_sam import LangSAM
+import numpy as np
 
 
 def crop_image(image_pil, box):
@@ -30,7 +31,7 @@ class PromptBoxManager:
         self.prompt_assigned_boxes = None
 
         self.snapshots = []
-        self.output_folder = "./data/debug_faster9/"
+        self.output_folder = "./data/debug_faster16/"
         self.previous_assign = None
 
         self.prompt_predict = None
@@ -45,6 +46,7 @@ class PromptBoxManager:
 
 
         self.model_LangSAM = LangSAM()
+
         self.model_clip, self.preprocess_clip = clip.load("ViT-L/14", device=self.device)
         #self.model_clip = model_clip.to(self.device)
         self.model_clip.eval()
@@ -58,9 +60,9 @@ class PromptBoxManager:
 
         print("initializing prompt embeddings: ", self.look_up_prompts)
         tokens = clip.tokenize(self.look_up_prompts).to(self.device)
-
-        self.embed_prompt = self.model_clip.encode_text(tokens)
-        self.embed_prompt = torch.nn.functional.normalize(self.embed_prompt, p=2, dim=1)
+        with torch.no_grad():
+            self.embed_prompt = self.model_clip.encode_text(tokens)
+            self.embed_prompt = torch.nn.functional.normalize(self.embed_prompt, p=2, dim=1)
         print("initialized prompt embeddings, with shape: ", self.embed_prompt.shape)
         for prompt in self.look_up_prompts:
             self.prompt_predict[prompt] = {"exist": False,
@@ -83,10 +85,9 @@ class PromptBoxManager:
         ph = []
         lo = []
         for i in self.prompts:
-            boxes, confidence, phrases = self.model_LangSAM.predict_dino(image, i, self.DINO_THRESHOLD,
-                                                                         self.DINO_THRESHOLD)
-
-
+            with torch.no_grad():
+                boxes, confidence, phrases = self.model_LangSAM.predict_dino(image, i, self.DINO_THRESHOLD,
+                                                                             self.DINO_THRESHOLD)
 
             #pdb.set_trace()
             #boxes = torch.cat((boxes, box), dim=0)
@@ -107,8 +108,9 @@ class PromptBoxManager:
             for im in image_patches:
                 im = self.preprocess_clip(im).to(self.device)
                 image_embeddings.append(im)
-            embed_patches = self.model_clip.encode_image(torch.stack(image_embeddings).to(self.device))
-            embed_patches = torch.nn.functional.normalize(embed_patches, p=2, dim=1)
+            with torch.no_grad():
+                embed_patches = self.model_clip.encode_image(torch.stack(image_embeddings).to(self.device))
+                embed_patches = torch.nn.functional.normalize(embed_patches, p=2, dim=1)
 
             embed_patches = embed_patches[mask]
             embed_prompt = self.embed_prompt[prompts_index[mask]]
@@ -190,10 +192,9 @@ class PromptBoxManager:
         for im in image_patches:
             im = self.preprocess_clip(im).to(self.device)
             image_embeddings.append(im)
-
-        embed_patches = self.model_clip.encode_image(torch.stack(image_embeddings).to(self.device))
-        embed_patches = torch.nn.functional.normalize(embed_patches, p=2, dim=1)
-
+        with torch.no_grad():
+            embed_patches = self.model_clip.encode_image(torch.stack(image_embeddings).to(self.device))
+            embed_patches = torch.nn.functional.normalize(embed_patches, p=2, dim=1)
 
         self.embed_box = torch.cat((self.embed_box, embed_patches), dim=0)
 
@@ -283,6 +284,17 @@ class PromptBoxManager:
                 if phrase in prompt:
                     output[index2] = index
         return output
+
+    def _segment_mask(self, image, boxes):
+        #get the bounding box and the patch image as input, save the bounding box mask in the original image
+        masks = self.model_LangSAM.predict_sam(image, boxes)
+        masks = masks.squeeze(1)
+        masks_np = [mask.cpu().detach().numpy() for mask in masks]
+        masks_np = [(mask * 255).astype(np.uint8) for mask in masks_np]
+        combined_mask = np.zeros(masks_np[0].shape, dtype=np.uint8)
+        for mask in masks_np:
+            combined_mask = np.maximum(combined_mask, mask)
+        return combined_mask
 
 
 
