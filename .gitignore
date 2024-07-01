@@ -3,3 +3,6 @@ lang-segment-anything/
 __pycache__
 
 aggregation/test_data
+viewer/recorded_data/dataset1/*
+viewer/recorded_data/dataset3/*
+viewer/recorded_data/dataset_tracking/*
