@@ -13,12 +13,13 @@ import hl2ss_io
 # Settings --------------------------------------------------------------------
 
 # Directory containing the recorded data
-path = 'C:/Users/Marc/Desktop/CS/MARPROJECT/viewer/data'
+path = 'viewer/recorded_data/dataset1'
 
 #------------------------------------------------------------------------------
 
 # Open PV bin file ------------------------------------------------------------
 port = hl2ss.StreamPort.PERSONAL_VIDEO
+# port = hl2ss.StreamPort.RM_DEPTH_LONGTHROW
 filename = os.path.join(path, f'{hl2ss.get_port_name(port)}.bin')
 
 # Stream type is detected automatically
@@ -43,3 +44,4 @@ while (True):
 
 # Close PV bin file -----------------------------------------------------------
 reader.close()
+print(filename)

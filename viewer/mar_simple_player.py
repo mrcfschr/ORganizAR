@@ -16,9 +16,9 @@ from pynput import keyboard
 # Settings --------------------------------------------------------------------
 
 # Directory containing the recorded data
-path = 'C:/Users/Marc/Desktop/CS/MARPROJECT/viewer/data'
+path = 'viewer/data'
 # Directory containing the calibration data of the HoloLens
-calibration_path: str = 'C:/Users/Marc/Desktop/CS/MARPROJECT/calibration/rm_depth_longthrow/'
+calibration_path: str = 'calibration/rm_depth_longthrow/'
 
 # Maximum depth in meters
 max_depth = 1000

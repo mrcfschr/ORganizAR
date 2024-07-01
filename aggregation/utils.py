@@ -465,8 +465,8 @@ def detection_rate_filter(masked_counts: torch.Tensor, detection_rate_thres: flo
 
     """TODO: Not modified yet
     
-    probabally not suitable for our case, cause it requires a full iteration of all the masks
-    and it takes extra 10-20 seconds 
+    probabally not suitable for our case, cause it requires a full iteration of all the RGB images with visibility check
+    and it takes extra 10-20 seconds in total
     
     """
     # image_dir = os.path.join(scene_2d_dir, scene_id, "color")
