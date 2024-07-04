@@ -31,7 +31,7 @@ class PromptBoxManager:
         self.prompt_assigned_boxes = None
 
         self.snapshots = []
-        self.output_folder = "./data/debug_faster16/"
+        self.output_folder = "./data/debug_faster17/"
         self.previous_assign = None
 
         self.prompt_predict = None

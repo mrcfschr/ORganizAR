@@ -23,10 +23,11 @@ from faster_haoyang import PromptBoxManager
 
 # Settings --------------------------------------------------------------------
 from_recording = True  # set to run live on HL vs from recorded dataset
-visualization_enabled = False
+visualization_enabled = True
 write_data = True
 wsl = False
 remote_docker = False
+
 
 if wsl:
     visualization_enabled = False
@@ -47,7 +48,7 @@ path = path_start + 'viewer/recorded_data/dataset1'
 calibration_path: str = path_start + 'calibration/rm_depth_longthrow/'
 
 # rgb images from recorded data
-write_data_path = "viewer/data/debug_faster16/"
+write_data_path = "viewer/data/debug_faster17/"
 if os.path.exists(path_start + write_data_path) == False:
     os.makedirs(path_start + write_data_path)
 
@@ -79,7 +80,7 @@ prompts_lookup = ["A table with blue cloth on it","a grey shelf with a pole on i
 # prompts = ["C Arm", "Ultrasound Machine", "Laparoscopic Tower", "Chairs", "Table with blue cloth", "Patient Bed"]#["timer","bed","monitors", "orange pen", "keyboard"]
 
 
-boxManager = PromptBoxManager(prompts, prompts_lookup)
+#boxManager = PromptBoxManager(prompts, prompts_lookup)
 
 images = [image_pil_timer, image_pil_bed]
 
@@ -95,6 +96,15 @@ quad_scale: List[float] = [0.005, 0.005, 0.005]
 sphere_scale: List[float] = [0.001, 0.001, 0.001]
 total_quad_count: int = 500
 
+volume = o3d.pipelines.integration.ScalableTSDFVolume(voxel_length=voxel_length, sdf_trunc=sdf_trunc,
+                                                      color_type=o3d.pipelines.integration.TSDFVolumeColorType.RGB8)
+
+print("created volume")
+#initialize visualizer
+print("initializing visualizer")
+vis = o3d.visualization.Visualizer()
+vis.create_window()
+print("initialized visualizer")
 
 def apply_clip_embedding_prompt(prompt):
     text = clip.tokenize([prompt]).to(device_search)
@@ -273,6 +283,13 @@ if __name__ == '__main__':
 
     data = set_up_data_struct(prompts)
 
+    intrinsics_depth = o3d.camera.PinholeCameraIntrinsic(hl2ss.Parameters_RM_DEPTH_LONGTHROW.WIDTH,
+                                                         hl2ss.Parameters_RM_DEPTH_LONGTHROW.HEIGHT,
+                                                         calibration_lt.intrinsics[0, 0],
+                                                         calibration_lt.intrinsics[1, 1],
+                                                         calibration_lt.intrinsics[2, 0],
+                                                         calibration_lt.intrinsics[2, 1])
+
     # Main Loop ---------------------------------------------------------------
     counter = 0
     print("start detecting")
@@ -300,17 +317,63 @@ if __name__ == '__main__':
             if ((data_pv is None) or (not hl2ss.is_valid_pose(data_pv.pose))):
                 continue
 
+
+
         # Preprocess frames ---------------------------------------------------
         depth = hl2ss_3dcv.rm_depth_undistort(data_depth.payload.depth, calibration_lt.undistort_map)
         depth = hl2ss_3dcv.rm_depth_normalize(depth, depth_scale)
         color_np = data_pv.payload.image
         color_pil = Image.fromarray(color_np)
+
+        # get depth and color alignment
+        pv_intrinsics = hl2ss.update_pv_intrinsics(pv_intrinsics, data_pv.payload.focal_length,
+                                                   data_pv.payload.principal_point)
+        color_intrinsics, color_extrinsics = hl2ss_3dcv.pv_fix_calibration(pv_intrinsics, pv_extrinsics)
+
+        lt_points = hl2ss_3dcv.rm_depth_to_points(xy1, depth)
+        lt_to_world = hl2ss_3dcv.camera_to_rignode(calibration_lt.extrinsics) @ hl2ss_3dcv.reference_to_world(
+            data_depth.pose)
+        world_to_lt = hl2ss_3dcv.world_to_reference(data_depth.pose) @ hl2ss_3dcv.rignode_to_camera(
+            calibration_lt.extrinsics)
+        world_to_pv_image = hl2ss_3dcv.world_to_reference(data_pv.pose) @ hl2ss_3dcv.rignode_to_camera(
+            color_extrinsics) @ hl2ss_3dcv.camera_to_image(color_intrinsics)
+        world_points = hl2ss_3dcv.transform(lt_points, lt_to_world)
+        pv_uv = hl2ss_3dcv.project(world_points, world_to_pv_image)
+        color = cv2.remap(color_np, pv_uv[:, :, 0], pv_uv[:, :, 1], cv2.INTER_LINEAR)
+        mask_uv = hl2ss_3dcv.slice_to_block(
+            (pv_uv[:, :, 0] < 0) | (pv_uv[:, :, 0] >= pv_width) | (pv_uv[:, :, 1] < 0) | (pv_uv[:, :, 1] >= pv_height))
+        depth_recon = np.copy(depth)
+        depth_recon[mask_uv] = 0
+
         (image_isNovel_view, index, img) = view_mana.new_view(color_np)
         if image_isNovel_view:
             print("saving frame ", str(counter))
             color_pil.save(path_start + write_data_path + "selected_frame" + str(counter) + ".jpeg")
-            boxManager.new_frame(color_pil)
-            boxManager.output_det()
+            #compute RGBD image
+            color_image = o3d.geometry.Image(color)
+            depth_image = o3d.geometry.Image(depth_recon)
+            rgbd = o3d.geometry.RGBDImage.create_from_color_and_depth(color_image, depth_image, depth_scale=1,
+                                                                      depth_trunc=max_depth,
+                                                                      convert_rgb_to_intensity=False)
+            volume.integrate(rgbd, intrinsics_depth, world_to_lt.transpose())
+            pcd_tmp = volume.extract_point_cloud()
+            if counter == 0:
+                pcd = pcd_tmp
+                vis.add_geometry(pcd)
+            else:
+                print("updating the point cloud")
+                pcd.points = pcd_tmp.points
+                pcd.colors = pcd_tmp.colors
+                vis.update_geometry(pcd)
+                vis.update_geometry(pcd)
+            if counter == 50:
+                o3d.io.write_point_cloud("/Users/haoyangsun/Documents/ORganizAR/viewer/recorded_data/pointclouds/pointcloud_dataset1.ply",pcd)
+            vis.poll_events()
+            vis.update_renderer()
+
+            #boxManager.new_frame(color_pil)
+            #boxManager.output_det()
+
             counter += 1
     # shutdown server
     if from_recording:
