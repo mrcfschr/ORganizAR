@@ -339,7 +339,7 @@ def solve_overlapping(
     solve overlapping among all masks
     """
     # mask_counts for filtering (considering classes)
-    mask_counts = torch.zeros(aggregated_masks.shape[1], dtype=torch.int32) # shape (N,)
+    mask_counts = torch.zeros(aggregated_masks.shape[1], dtype=torch.int32, device=device) # shape (N,)
 
     # number of aggrated inital masks in each aggregated mask
     num_masks = [len(mask_indeces) for mask_indeces in mask_indeces_to_be_merged]
