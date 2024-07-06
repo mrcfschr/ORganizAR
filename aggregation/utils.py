@@ -211,13 +211,13 @@ def aggregate(
     ) = merge_masks(ins_masks, confidences, labels, merge_matrix)
 
     # solve overlapping
-    final_masks = solve_overlapping(aggregated_masks, mask_indeces_to_be_merged)
+    final_masks, masked_counts = solve_overlapping(aggregated_masks, mask_indeces_to_be_merged, backprojected_3d_masks)
 
     return {
         "ins": final_masks,  # torch.tensor (Ins, N)
         "conf": aggregated_confidences,  # torch.tensor (Ins, )
         "final_class": aggregated_labels,  # List[str] (Ins,)
-    }
+    }, masked_counts
 
 
 def calculate_iou(ins_masks: torch.Tensor) -> torch.Tensor:
@@ -333,10 +333,14 @@ def find_unconnected_subgraphs_tensor(adj_matrix: torch.Tensor) -> List[List[int
 def solve_overlapping(
     aggregated_masks: torch.Tensor,
     mask_indeces_to_be_merged: List[List[int]],
+    backprojected_3d_masks: dict,
 ) -> torch.Tensor:
     """
     solve overlapping among all masks
     """
+    # mask_counts for filtering (considering classes)
+    mask_counts = torch.zeros(aggregated_masks.shape[1], dtype=torch.int32) # shape (N,)
+
     # number of aggrated inital masks in each aggregated mask
     num_masks = [len(mask_indeces) for mask_indeces in mask_indeces_to_be_merged]
 
@@ -349,12 +353,22 @@ def solve_overlapping(
 
     # only keep overlapped points for masks aggregated from more masks
     for i, j in overlapping_masks:
+        # solve overlapping
         if num_masks[i] > num_masks[j]:
             aggregated_masks[j] &= ~aggregated_masks[i]
         else:
             aggregated_masks[i] &= ~aggregated_masks[j]
 
-    return aggregated_masks
+        # update mask_counts for mask i
+        for index in mask_indeces_to_be_merged[i]:
+            mask_counts += (backprojected_3d_masks["ins"][index] & aggregated_masks[i]).int()
+
+        # update mask_counts for mask j
+        for index in mask_indeces_to_be_merged[j]:
+            mask_counts += (backprojected_3d_masks["ins"][index] & aggregated_masks[j]).int()
+        
+
+    return aggregated_masks, mask_counts
 
 
 """
@@ -570,12 +584,12 @@ if __name__ == "__main__":
         backprojected_3d_masks["conf"]
     )  # (Ins, )
 
-    # Calculate masked counts for filtering
-    masked_counts = backprojected_3d_masks["ins"].sum(dim=0)  # (N,)
 
     """ 2. Aggregating 3d masks"""
     # start aggregation
-    aggregated_3d_masks = aggregate(backprojected_3d_masks)
+    aggregated_3d_masks, masked_counts = aggregate(backprojected_3d_masks)
+
+
 
     """ 3. Filtering 3d masks"""
     # start filtering
