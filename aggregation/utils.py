@@ -36,10 +36,22 @@ def project_2d_to_3d_single_frame(
     cam_intr,
     depth_im,
     cam_pose,
+    depth_pose,
     masks_2d,
     pcd_3d,
     photo_width,
     photo_height,
+    depth_intr=np.array(
+            [
+                [174.79669, 0.0, 156.74863],
+                [0.0, 181.98889, 172.73248],
+                [
+                    0.0,
+                    0.0,
+                    1.0,
+                ],
+            ]
+        ),
     depth_thresh=0.08,
     depth_scale=1000,
 ):
@@ -47,9 +59,10 @@ def project_2d_to_3d_single_frame(
 
     args:
         backprojected_3d_masks: add results to this dict
-        cam_intr: 3x3 camera intrinsic matrix
+        cam_intr: 3x3 camera intrinsic matrix of rgb camera
         depth_im: depth image of current frame readed by cv2.imread
-        cam_pose: camera pose of current frame
+        cam_pose: camera pose of current frame (camera to world)
+        depth_pose: depth camera pose of current frame (depth camera to world)
         masks_2d: 2d masks of current frame
             {
                 "frame_id": frame_id,
@@ -80,6 +93,7 @@ def project_2d_to_3d_single_frame(
 
     # process 3d point cloud
     scene_pts = copy.deepcopy(pcd_3d)
+    scene_pts_depth = copy.deepcopy(pcd_3d)
 
     # process depth image
     depth_im = cv2.resize(depth_im, (photo_width, photo_height))
@@ -87,20 +101,38 @@ def project_2d_to_3d_single_frame(
 
     # convert 3d points to camera coordinates
     scene_pts = (np.linalg.inv(cam_pose) @ scene_pts).T[:, :3]  # (N, 3)
+    scene_pts_depth = (np.linalg.inv(depth_pose) @ scene_pts_depth).T[:, :3]  # (N, 3)
 
     """Start projectiom"""
-    # project 3d points to current 2d frame
-    projected_pts = compute_projected_pts_tensor(scene_pts, cam_intr)
+    """Method 1"""
+    # # project 3d points to current 2d rgb frame
+    # projected_pts = compute_projected_pts_tensor(scene_pts, cam_intr)
 
-    # check visibility of projected 2d points
-    visibility_mask = compute_visibility_mask_tensor(
-        scene_pts, projected_pts, depth_im, depth_thresh=depth_thresh
-    )
+    # # check visibility of projected 2d points
+    # visibility_mask = compute_visibility_mask_tensor(
+    #     scene_pts_depth, projected_pts, depth_im, depth_thresh=depth_thresh
+    # )
 
-    # Select visible 3D points in 2D masks as backprojected 3D masks
-    masked_pts = compute_visible_masked_pts_tensor(
-        scene_pts, projected_pts, visibility_mask, pred_masks
-    )
+    # # Select visible 3D points in 2D masks as backprojected 3D masks
+    # masked_pts = compute_visible_masked_pts_tensor(
+    #     scene_pts, projected_pts, visibility_mask, pred_masks
+    # )
+
+    """Method 2 : seperated depth and rgb camera"""
+    # # check depth for each masked 3d points
+    # visibility_mask = check_depth_for_3d_masked_pts(
+    #     scene_pts_depth, depth_im, depth_intr, depth_thresh=depth_thresh
+    # )  # (N,)
+
+    # # project 3d points to current 2d rgb frame and get masked 3d points
+    # masked_pts = compute_projected_masked_pts_tensor_rgb(
+    #     scene_pts_depth, cam_intr, pred_masks, visibility_mask
+    # )  # (M, N)
+
+    """Method 3 : first hit"""
+    masked_pts = firsthit_compute_projected_masked_pts_tensor_rgb(
+        scene_pts, cam_intr, pred_masks, depth_thresh
+    )  # (M, N)
 
     masked_pts = torch.from_numpy(masked_pts).to(device)  # (M, N)
     mask_area = torch.sum(masked_pts, dim=1).detach().cpu().numpy()  # (M,)
@@ -118,6 +150,152 @@ def project_2d_to_3d_single_frame(
         backprojected_3d_masks["final_class"].append(labels[i])
 
     return backprojected_3d_masks
+
+def firsthit_compute_projected_masked_pts_tensor_rgb(pts, cam_intr, pred_masks, depth_thresh=0.08):
+    # map 3d pointclouds in camera coordinates system to 2d
+    # bool mask of pointcloud (M, N) which has xy within mask
+
+    pts = pts.T  # (3, N)
+    # print("cam_int", cam_intr)
+    projected_pts = cam_intr @ pts / pts[2]  # (3, N)
+    projected_pts = projected_pts[:2].T  # (N, 2)
+    projected_pts = (np.round(projected_pts)).astype(np.int64)
+
+
+    print("DEBUG", projected_pts.shape, pred_masks.shape)
+    inbounds = (
+        (projected_pts[:, 0] >= 0)
+        & (projected_pts[:, 0] < pred_masks.shape[2])
+        & (projected_pts[:, 1] >= 0)
+        & (projected_pts[:, 1] < pred_masks.shape[1])
+    )  # (N,)
+
+
+    # first hit as visible
+    visibility_mask = np.zeros(projected_pts.shape[0]).astype(np.bool8)
+    # visible if depth is positive
+    # visibility_mask = pts[2] > 0
+    # calculate first hit in 3d space for each 2d point
+    lowest_depth = np.ones((pred_masks.shape[1], pred_masks.shape[2])) * 1000 # 1000 is just a large number that won't be reached
+    for i in range(projected_pts.shape[0]):
+        # print("DEBUG", i, projected_pts[i])
+        if not inbounds[i]:
+            # print("skip")
+            continue
+        x, y = projected_pts[i]
+        if lowest_depth[y][x] >=1000 and pts.T[i][2] > 0:
+            lowest_depth[y][x] = pts.T[i][2]
+        elif pts.T[i][2] < lowest_depth[y][x] and pts.T[i][2] > 0:
+            lowest_depth[y][x] = pts.T[i][2]
+    print("DEBUG lowest depth", lowest_depth.max(), lowest_depth.min())
+
+    """cause we have ~280000 2d points, which is much more than 3d points in this view, first hit also includes background, 
+    so we need to filter out background points"""
+    # convert to tensor
+    lowest_depth = torch.tensor(lowest_depth)
+    # perfrom min pooling of 3x3 kernel to filter out background points
+    lowest_depth = lowest_depth * -1
+    lowest_depth = torch.nn.functional.max_pool2d(lowest_depth.unsqueeze(0).unsqueeze(0), 15 , stride=1, padding=7, ).squeeze(0).squeeze(0) * -1
+    print("DEBUG lowest depth", lowest_depth.max(), lowest_depth.min())
+    
+
+
+    for i in range(projected_pts.shape[0]):
+        if not inbounds[i]:
+            continue
+        x, y = projected_pts[i]
+        if torch.abs(pts.T[i][2] - lowest_depth[y][x]) < depth_thresh and pts.T[i][2] > 0:
+            visibility_mask[i] = True
+    print("DEBUG visibility mask", visibility_mask.sum())
+
+    # return masked 3d points
+    N = projected_pts.shape[0]
+    M, _, _ = pred_masks.shape  # (M, H, W)
+    # print("DEBUG M value", M)
+    projected_pts = projected_pts[inbounds]  # (X, 2)
+    masked_pts = np.zeros((M, N), dtype=np.bool_)
+    for m in range(M):
+        x, y = projected_pts.T  # (X,)
+        mask_check = pred_masks[m, y, x]  # (X,)
+        # print("debug mask", masked_pts[m].shape, mask_check.shape)
+        masked_pts[m, inbounds] = mask_check # shape (M, N)
+        masked_pts[m, ~visibility_mask] = False
+
+    return masked_pts
+
+
+def check_depth_for_3d_masked_pts(depth_pts, depth_im, depth_intr, depth_thresh=0.08):
+    # compare z in camera coordinates and depth image
+    # to check if there projected points are visible
+    im_h, im_w = depth_im.shape
+
+    visibility_mask = np.zeros(depth_pts.shape[0]).astype(np.bool8)
+    projected_pts_depth = depth_intr @ depth_pts.T  # (3, N)
+    projected_pts_depth = projected_pts_depth[:2].T  # (N, 2)
+    projected_pts_depth = (np.round(projected_pts_depth)).astype(np.int64)
+
+    inbounds = (
+        (projected_pts_depth[:, 0] >= 0)
+        & (projected_pts_depth[:, 0] < im_w)
+        & (projected_pts_depth[:, 1] >= 0)
+        & (projected_pts_depth[:, 1] < im_h)
+    )  # (N,)
+    projected_pts_depth = projected_pts_depth[inbounds]  # (X, 2)
+    depth_check = (
+        depth_im[projected_pts_depth[:, 1], projected_pts_depth[:, 0]] != 0
+    ) & (
+        np.abs(  # check if the depth is within the threshold
+            depth_pts[inbounds][:, 2]
+            - depth_im[projected_pts_depth[:, 1], projected_pts_depth[:, 0]]
+        )
+        < depth_thresh
+    )
+
+    visibility_mask[inbounds] = depth_check
+    return visibility_mask  # (N,)
+
+def compute_projected_masked_pts_tensor_rgb(pts, cam_intr, pred_masks, visibility_mask):
+    # map 3d pointclouds in camera coordinates system to 2d
+    # bool mask of pointcloud (M, N) which has xy within mask
+
+    pts = pts.T  # (3, N)
+    # print("cam_int", cam_intr)
+    projected_pts = cam_intr @ pts / pts[2]  # (3, N)
+    projected_pts = projected_pts[:2].T  # (N, 2)
+    projected_pts = (np.round(projected_pts)).astype(np.int64)
+
+    #    # first hit as visible
+    #     visibility_mask = np.zeros(projected_pts.shape[0]).astype(np.bool8)
+    #     inbounds = (
+    #         (projected_pts[:, 0] >= 0)
+    #         & (projected_pts[:, 0] < pred_masks.shape[2])
+    #         & (projected_pts[:, 1] >= 0)
+    #         & (projected_pts[:, 1] < pred_masks.shape[1])
+    #     )  # (N,)
+    #     first_hits =
+
+    inbounds = (
+        (projected_pts[:, 0] >= 0)
+        & (projected_pts[:, 0] < pred_masks.shape[2])
+        & (projected_pts[:, 1] >= 0)
+        & (projected_pts[:, 1] < pred_masks.shape[1])
+    )  # (N,)
+
+    # return masked 3d points
+    N = projected_pts.shape[0]
+    M, _, _ = pred_masks.shape  # (M, H, W)
+    # print("DEBUG M value", M)
+    projected_pts = projected_pts[inbounds]  # (X, 2)
+    masked_pts = np.zeros((M, N), dtype=np.bool_)
+    for m in range(M):
+        x, y = projected_pts.T  # (X,)
+        mask_check = pred_masks[m, y, x]  # (X,)
+        # print("debug mask", masked_pts[m].shape, mask_check.shape)
+        masked_pts[m, inbounds] = mask_check
+        masked_pts[m, ~visibility_mask] = False
+
+    return masked_pts
+
 
 
 def compute_projected_pts_tensor(pts, cam_intr):
@@ -211,7 +389,9 @@ def aggregate(
     ) = merge_masks(ins_masks, confidences, labels, merge_matrix)
 
     # solve overlapping
-    final_masks, masked_counts = solve_overlapping(aggregated_masks, mask_indeces_to_be_merged, backprojected_3d_masks)
+    final_masks, masked_counts = solve_overlapping(
+        aggregated_masks, mask_indeces_to_be_merged, backprojected_3d_masks
+    )
 
     return {
         "ins": final_masks,  # torch.tensor (Ins, N)
@@ -339,7 +519,9 @@ def solve_overlapping(
     solve overlapping among all masks
     """
     # mask_counts for filtering (considering classes)
-    mask_counts = torch.zeros(aggregated_masks.shape[1], dtype=torch.int32, device=device) # shape (N,)
+    mask_counts = torch.zeros(
+        aggregated_masks.shape[1], dtype=torch.int32, device=device
+    )  # shape (N,)
 
     # number of aggrated inital masks in each aggregated mask
     num_masks = [len(mask_indeces) for mask_indeces in mask_indeces_to_be_merged]
@@ -359,14 +541,13 @@ def solve_overlapping(
         else:
             aggregated_masks[i] &= ~aggregated_masks[j]
 
+    # update mask_counts
+    for i in range(len(aggregated_masks)):
         # update mask_counts for mask i
         for index in mask_indeces_to_be_merged[i]:
-            mask_counts += (backprojected_3d_masks["ins"][index] & aggregated_masks[i]).int()
-
-        # update mask_counts for mask j
-        for index in mask_indeces_to_be_merged[j]:
-            mask_counts += (backprojected_3d_masks["ins"][index] & aggregated_masks[j]).int()
-        
+            mask_counts += (
+                backprojected_3d_masks["ins"][index] & aggregated_masks[i]
+            ).int()
 
     return aggregated_masks, mask_counts
 
@@ -475,13 +656,13 @@ def occurance_filter(masked_counts: torch.Tensor, occurance_thres: float):
     point_mask = masked_counts > 0
     return point_mask
 
-def detection_rate_filter(masked_counts: torch.Tensor, detection_rate_thres: float):
 
+def detection_rate_filter(masked_counts: torch.Tensor, detection_rate_thres: float):
     """TODO: Not modified yet
-    
+
     probabally not suitable for our case, cause it requires a full iteration of all the RGB images with visibility check
     and it takes extra 10-20 seconds in total
-    
+
     """
     # image_dir = os.path.join(scene_2d_dir, scene_id, "color")
     # image_files = [f for f in os.listdir(image_dir) if f.endswith(".jpg")]
@@ -525,7 +706,7 @@ def detection_rate_filter(masked_counts: torch.Tensor, detection_rate_thres: flo
     #     )
     #     viewed_counts += torch.tensor(visibility_mask).to(device=device)
     return None
-    
+
 
 if __name__ == "__main__":
 
@@ -584,15 +765,13 @@ if __name__ == "__main__":
         backprojected_3d_masks["conf"]
     )  # (Ins, )
 
-
     """ 2. Aggregating 3d masks"""
     # start aggregation
     aggregated_3d_masks, masked_counts = aggregate(backprojected_3d_masks)
-
-
 
     """ 3. Filtering 3d masks"""
     # start filtering
     filtered_3d_masks = filter(aggregated_3d_masks, masked_counts)
 
     print("print filtered_3d_masks", filtered_3d_masks)
+    torch.save(filtered_3d_masks, "aggregation/test_data/test_3d_masks.pth")
