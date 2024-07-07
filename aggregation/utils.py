@@ -97,12 +97,15 @@ def project_2d_to_3d_single_frame(
 
     # process depth image
     depth_im = cv2.resize(depth_im, (photo_width, photo_height))
-    depth_im = depth_im.astype(np.float32) / depth_scale
+    depth_im = torch.tensor(depth_im, device=device) / depth_scale
 
     # convert 3d points to camera coordinates
     scene_pts = (np.linalg.inv(cam_pose) @ scene_pts).T[:, :3]  # (N, 3)
     scene_pts_depth = (np.linalg.inv(depth_pose) @ scene_pts_depth).T[:, :3]  # (N, 3)
 
+    # convert tensor
+    scene_pts = torch.tensor(scene_pts).to(device)  # (N, 3)
+    scene_pts_depth = torch.tensor(scene_pts_depth).to(device)  # (N, 3)
     """Start projectiom"""
     """Method 1"""
     # # project 3d points to current 2d rgb frame
@@ -134,7 +137,7 @@ def project_2d_to_3d_single_frame(
         scene_pts, cam_intr, pred_masks, depth_thresh
     )  # (M, N)
 
-    masked_pts = torch.from_numpy(masked_pts).to(device)  # (M, N)
+    masked_pts = torch.tensor(masked_pts).to(device)  # (M, N)
     mask_area = torch.sum(masked_pts, dim=1).detach().cpu().numpy()  # (M,)
     print(
         "number of 3d mask points:",
@@ -159,7 +162,7 @@ def firsthit_compute_projected_masked_pts_tensor_rgb(pts, cam_intr, pred_masks, 
     # print("cam_int", cam_intr)
     projected_pts = cam_intr @ pts / pts[2]  # (3, N)
     projected_pts = projected_pts[:2].T  # (N, 2)
-    projected_pts = (np.round(projected_pts)).astype(np.int64)
+    projected_pts = (torch.round(projected_pts)).to(torch.int64)
 
 
     print("DEBUG", projected_pts.shape, pred_masks.shape)
@@ -172,11 +175,11 @@ def firsthit_compute_projected_masked_pts_tensor_rgb(pts, cam_intr, pred_masks, 
 
 
     # first hit as visible
-    visibility_mask = np.zeros(projected_pts.shape[0]).astype(np.bool8)
+    visibility_mask = torch.zeros(projected_pts.shape[0], device=device).to(torch.bool)
     # visible if depth is positive
     # visibility_mask = pts[2] > 0
     # calculate first hit in 3d space for each 2d point
-    lowest_depth = np.ones((pred_masks.shape[1], pred_masks.shape[2])) * 1000 # 1000 is just a large number that won't be reached
+    lowest_depth = torch.ones((pred_masks.shape[1], pred_masks.shape[2]), device=device) * 1000 # 1000 is just a large number that won't be reached
     for i in range(projected_pts.shape[0]):
         # print("DEBUG", i, projected_pts[i])
         if not inbounds[i]:
@@ -192,7 +195,7 @@ def firsthit_compute_projected_masked_pts_tensor_rgb(pts, cam_intr, pred_masks, 
     """cause we have ~280000 2d points, which is much more than 3d points in this view, first hit also includes background, 
     so we need to filter out background points"""
     # convert to tensor
-    lowest_depth = torch.tensor(lowest_depth)
+    lowest_depth = torch.tensor(lowest_depth, device=device)
     # perfrom min pooling of 3x3 kernel to filter out background points
     lowest_depth = lowest_depth * -1
     lowest_depth = torch.nn.functional.max_pool2d(lowest_depth.unsqueeze(0).unsqueeze(0), 15 , stride=1, padding=7, ).squeeze(0).squeeze(0) * -1
@@ -213,7 +216,7 @@ def firsthit_compute_projected_masked_pts_tensor_rgb(pts, cam_intr, pred_masks, 
     M, _, _ = pred_masks.shape  # (M, H, W)
     # print("DEBUG M value", M)
     projected_pts = projected_pts[inbounds]  # (X, 2)
-    masked_pts = np.zeros((M, N), dtype=np.bool_)
+    masked_pts = torch.zeros((M, N), dtype=torch.bool, device=device)
     for m in range(M):
         x, y = projected_pts.T  # (X,)
         mask_check = pred_masks[m, y, x]  # (X,)
