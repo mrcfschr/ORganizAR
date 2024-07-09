@@ -22,8 +22,8 @@ import clip
 from_recording = True #set to run live on HL vs from recorded dataset
 visualization_enabled = False
 write_data = True
-wsl = False
-remote_docker = True
+wsl = True
+remote_docker = False
 
 if not remote_docker:
     from pynput import keyboard
@@ -79,13 +79,13 @@ else:
     
 image_pil_timer = Image.open(timer_image_path)
 image_pil_bed = Image.open(bed_image_path)
-prompts = ["timer","bed","monitors", "orange pen", "keyboard"]
+prompts = ["C-arm machine, characterized both by its distinctive C-shaped arm which houses an X-ray source and detector and it's connected control unit with various dials, buttons. White and grey in color.","The ultrasound machine tower is characterized by a large monitor on top, a console with numerous buttons and knobs, and a wheeled base. The machine is predominantly white with grey accents. Also there are fleshlight shaped ultrasound probes attached to it's sides","medical equipment cart, It has multiple shelves, a handle on top, and is predominantly grey with some blue sections. The cart has nothing on top; it is empty.","table in the center of the room with a light-blue cloth"]
 images = [image_pil_timer,image_pil_bed]
 
 data = {}
 CLIP_SIM_THRESHOLD = 0.6
 DINO_THRESHOLD = 0.35
-MIN_FRAME_NUM = 15
+MIN_FRAME_NUM = 55
 enable = True
 
 # unity pc vis secction
@@ -396,7 +396,6 @@ if __name__ == '__main__':
         color_pil = Image.fromarray(color_np)
         (image_isNovel_view,index,img) = view_mana.new_view(color_np)
         if image_isNovel_view:
-            
             if counter < MIN_FRAME_NUM:
                 print(f"view: {counter}")
                 counter +=1
@@ -442,7 +441,7 @@ if __name__ == '__main__':
                                 result = Image.blend(box_data["color_pil"], combined_mask_pil.convert("RGB"), alpha=0.5)
                                 score = box_data["sim_score"]
                                 logit = box_data["logit"]
-                                result.save(f"{path_start}{write_data_path}{prompt}clip{score}dino{logit}.jpeg")
+                                result.save(f"{path_start}{write_data_path}{prompt[0:10]}clip{score}dino{logit}.jpeg")
                             box_data["points"] = get_segmented_points(box_data, depth_scale, max_depth, xy1, calibration_lt)
                             if data[prompt]["point_cloud"].size == 0:
                                 data[prompt]["point_cloud"] = box_data["points"]

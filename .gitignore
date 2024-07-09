@@ -1,3 +1,13 @@
 lang-segment-anything/
 
 __pycache__
+viewer/data_room/rm_depth_longthrow.bin
+viewer/data/extended_audio.bin
+viewer/data/extended_audio.csv
+viewer/data/long_throw.tar
+viewer/data/personal_video.bin
+viewer/data/personal_video.csv
+viewer/data/rm_depth_longthrow.bin
+viewer/data/rm_depth_longthrow.csv
+viewer/data/video.mp4
+

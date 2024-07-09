@@ -17,7 +17,7 @@ import hl2ss_3dcv
 import hl2ss_io
 
 # Settings --------------------------------------------------------------------
-from_recording = False #set to run live on HL vs from recorded dataset
+from_recording = True #set to run live on HL vs from recorded dataset
 
 # HoloLens address
 host = '192.168.0.102'

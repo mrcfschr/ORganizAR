@@ -25,6 +25,33 @@ pip install -r requirements.txt
 
 - for mvp using langsam and clip see ORganizAR_LangSAM.py https://drive.google.com/file/d/1ClUKq9olohGyWB9jhLV8bFvrOwVMUIJL/view?usp=sharing
 
+- ORganizAR_LangSAM.py delivers the following results on the following data https://drive.google.com/drive/folders/1xZhKYx9wFjAXdYLEKy6aFf39Kam1z9Mi?usp=sharing (put into data folder)
+# ORganizAR_LangSAM.py Test on Recorded Data (using the top clip result and results within 3% of that score)
+
+## C-arm Machine
+| Image 1 | Image 2 |
+|---------|---------|
+| ![C-arm machclip29 71875dino0 4177130460739136](https://github.com/mrcfschr/ORganizAR/assets/57159035/7e6d7738-575d-495d-9f67-02f208a9778b) | ![C-arm machclip30 46875dino0 4697915315628052](https://github.com/mrcfschr/ORganizAR/assets/57159035/732a4bd3-eef2-43bf-80d8-1ac688d0af98) |
+
+## Ultrasound Machine
+| Image 1 | Image 2 | Image 3 |
+|---------|---------|---------|
+| ![The ultrasclip35 09375dino0 5181560516357422](https://github.com/mrcfschr/ORganizAR/assets/57159035/ecbaf82f-e9b5-4a23-99b6-f6c9569f572f) | ![The ultrasclip34 40625dino0 6049489974975586](https://github.com/mrcfschr/ORganizAR/assets/57159035/208d4b68-a425-4d48-a827-04a2820a01da) | ![The ultrasclip34 9375dino0 630884051322937](https://github.com/mrcfschr/ORganizAR/assets/57159035/4ee48c9f-77bc-40da-88dc-776166ecab29) |
+
+## Medical Equipment Shelf
+| Image 1 | Image 2 | Image 3 |
+|---------|---------|---------|
+| ![medical eqclip29 109375dino0 6338242888450623](https://github.com/mrcfschr/ORganizAR/assets/57159035/f596d6f1-af33-4ce0-a3ac-13ca533aca8b) | ![medical eqclip29 078125dino0 5817239880561829](https://github.com/mrcfschr/ORganizAR/assets/57159035/420a5f8e-ff23-4741-b293-8426a18b1c55) | ![medical eqclip28 703125dino0 6707133650779724](https://github.com/mrcfschr/ORganizAR/assets/57159035/1460f23d-7a38-42f3-a794-07b9c7c0fd6e) |
+
+## Patient Bed
+| Image 1 | Image 2 |
+|---------|---------|
+| ![table in tclip25 953125dino0 7223350405693054](https://github.com/mrcfschr/ORganizAR/assets/57159035/ca02bd67-8882-423e-8c70-e86be4298384) | ![table in tclip26 3125dino0 5987005829811096](https://github.com/mrcfschr/ORganizAR/assets/57159035/9e6129eb-31f2-4e11-aeed-bc17e08f97a8) |
+
+
+
+
+
 # Using docker on remote machine
 Use either `nvcr.io/nvidia/pytorch:23.09-py3` image for pure pytorch environment, or `coda:23.09-py3.10-tensorboardx` with all CoDA dependencies installed.
 
