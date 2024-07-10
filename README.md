@@ -48,8 +48,9 @@ pip install -r requirements.txt
 |---------|---------|
 | ![table in tclip25 953125dino0 7223350405693054](https://github.com/mrcfschr/ORganizAR/assets/57159035/ca02bd67-8882-423e-8c70-e86be4298384) | ![table in tclip26 3125dino0 5987005829811096](https://github.com/mrcfschr/ORganizAR/assets/57159035/9e6129eb-31f2-4e11-aeed-bc17e08f97a8) |
 
-data used visualized
+data used visualized:
 https://drive.google.com/file/d/1zk7zMx_R3yy2XcTRNDFWhLCtgGs2-cpf/view?usp=sharing
+
 results (note most of the time it takes is because the user is walking around and views are aggregated while some prerprocessing is already done the actual inference is super fast):
 https://drive.google.com/file/d/16M5TrcyUgGs6uVLEsBBroMQ3n_OHDvk6/view?usp=sharing
 
