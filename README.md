@@ -51,7 +51,7 @@ pip install -r requirements.txt
 data used visualized:
 https://drive.google.com/file/d/1zk7zMx_R3yy2XcTRNDFWhLCtgGs2-cpf/view?usp=sharing
 
-results (note most of the time it takes is because the user is walking around and views are aggregated while some prerprocessing is already done the actual inference is super fast):
+results (note most of the time it takes is because the user is walking around and views are aggregated while some prerprocessing is already done the actual inference is super fast, ~user waits 10 seconds after walking around for the final inference):
 https://drive.google.com/file/d/16M5TrcyUgGs6uVLEsBBroMQ3n_OHDvk6/view?usp=sharing
 
 
