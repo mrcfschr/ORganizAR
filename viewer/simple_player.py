@@ -13,7 +13,7 @@ import hl2ss_io
 # Settings --------------------------------------------------------------------
 
 # Directory containing the recorded data
-path = '/Users/haoyangsun/Documents/ORganizAR-main/viewer/recorded_data/dataset_tracking'
+path = '/data/projects/medar_smart/ORganizAR/viewer/recorded_data/dataset_03'
 
 #------------------------------------------------------------------------------
 

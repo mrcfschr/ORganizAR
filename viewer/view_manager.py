@@ -2,8 +2,8 @@ import cv2
 import os 
 save_path_rgb = "C:/Users/Marc/Desktop/CS/MARPROJECT/viewer/data/rgb/"
 class ViewManager:
-    
-    def __init__(self, thresh = 0.1):
+    # a higher threshold means more isolated frames
+    def __init__(self, thresh = 0.3):#thresh = 0.1
         self._novel=[]
         self._length=0
         self.orb = cv2.ORB.create()

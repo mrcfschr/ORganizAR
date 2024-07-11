@@ -17,10 +17,12 @@ import hl2ss_utilities
 # Settings --------------------------------------------------------------------
 
 # HoloLens address
-host = '192.168.3.35'
+host = '192.168.195.253'
 
 # Output directory
-path = '/Users/haoyangsun/Documents/ORganizAR-main/viewer/recorded_data/dataset_tracking/'
+path = '/data/projects/medar_smart/ORganizAR/viewer/recorded_data/dataset_03/'
+import os
+os.makedirs(path, exist_ok=True)
 
 # Unpack to viewable formats (e.g., encoded video to mp4)
 unpack = True

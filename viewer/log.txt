@@ -1,0 +1,1376 @@
+start path:  /data/projects/medar_smart/ORganizAR/
+using device:  CUDA:1  for reconstruction
+final text_encoder_type: bert-base-uncased
+Model loaded from /home/narvis/.cache/huggingface/hub/models--ShilongLiu--GroundingDINO/snapshots/a94c9b567a2a374598f05c584e96798a170c56fb/groundingdino_swinb_cogcoor.pth 
+ => _IncompatibleKeys(missing_keys=[], unexpected_keys=['label_enc.weight', 'bert.embeddings.position_ids'])
+initializing prompt embeddings:  ['table with sheet on it', 'a grey shelf with a pole on it', 'c arm, which is a medical machine with a large c shaped metal arm', 'backpack', ' ultra sound machine with a monitor on it', 'chair', 'monitor']
+created volume
+initializing visualizer
+start detecting
+saving frame  0
+processing frame Nr. 0
+get_prompt:  torch.cuda.memory_allocated: 4.208796GB
+prompts in frame 0 : tensor([-1, -1, -1, -1, -1, -1, -1])
+prompt  table with sheet on it  has no assigned box
+prompt  a grey shelf with a pole on it  has no assigned box
+prompt  c arm, which is a medical machine with a large c shaped metal arm  has no assigned box
+prompt  backpack  has no assigned box
+prompt   ultra sound machine with a monitor on it  has no assigned box
+prompt  chair  has no assigned box
+prompt  monitor  has no assigned box
+saving frame  1
+processing frame Nr. 1
+get_prompt:  torch.cuda.memory_allocated: 4.208796GB
+prompts in frame 1 : tensor([-1, -1, -1, -1, -1, -1, -1])
+previous assign:  tensor([-1, -1, -1, -1, -1, -1, -1])
+prompt  table with sheet on it  has no assigned box
+prompt  a grey shelf with a pole on it  has no assigned box
+prompt  c arm, which is a medical machine with a large c shaped metal arm  has no assigned box
+prompt  backpack  has no assigned box
+prompt   ultra sound machine with a monitor on it  has no assigned box
+prompt  chair  has no assigned box
+prompt  monitor  has no assigned box
+saving frame  2
+processing frame Nr. 2
+get_prompt:  torch.cuda.memory_allocated: 4.208796GB
+formulate mask:  torch.cuda.memory_allocated: 4.217776GB
+prompts in frame 2 : tensor([ 2, -1, -1, -1, -1, -1, -1])
+previous assign:  tensor([-1, -1, -1, -1, -1, -1, -1])
+saving frame  3  with prompt  table with sheet on it _confidence tensor(0.3264)
+prompt  a grey shelf with a pole on it  has no assigned box
+prompt  c arm, which is a medical machine with a large c shaped metal arm  has no assigned box
+prompt  backpack  has no assigned box
+prompt   ultra sound machine with a monitor on it  has no assigned box
+prompt  chair  has no assigned box
+prompt  monitor  has no assigned box
+saving frame  3
+processing frame Nr. 3
+get_prompt:  torch.cuda.memory_allocated: 4.212703GB
+prompts in frame 3 : tensor([ 2, -1, -1, -1, -1, -1, -1])
+previous assign:  tensor([ 2, -1, -1, -1, -1, -1, -1])
+prompt  a grey shelf with a pole on it  has no assigned box
+prompt  c arm, which is a medical machine with a large c shaped metal arm  has no assigned box
+prompt  backpack  has no assigned box
+prompt   ultra sound machine with a monitor on it  has no assigned box
+prompt  chair  has no assigned box
+prompt  monitor  has no assigned box
+saving frame  4
+processing frame Nr. 4
+get_prompt:  torch.cuda.memory_allocated: 4.212703GB
+formulate mask:  torch.cuda.memory_allocated: 4.217210GB
+prompts in frame 4 : tensor([ 2,  4, -1, -1,  4, -1, -1])
+previous assign:  tensor([ 2, -1, -1, -1, -1, -1, -1])
+saving frame  5  with prompt  a grey shelf with a pole on it _confidence tensor(0.3003)
+prompt  c arm, which is a medical machine with a large c shaped metal arm  has no assigned box
+prompt  backpack  has no assigned box
+saving frame  5  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.4117)
+prompt  chair  has no assigned box
+prompt  monitor  has no assigned box
+saving frame  5
+processing frame Nr. 5
+get_prompt:  torch.cuda.memory_allocated: 4.212703GB
+formulate mask:  torch.cuda.memory_allocated: 4.217777GB
+prompts in frame 5 : tensor([ 5,  4, -1, -1,  5, -1, -1])
+previous assign:  tensor([ 2,  4, -1, -1,  4, -1, -1])
+saving frame  6  with prompt  table with sheet on it _confidence tensor(0.7488)
+prompt  c arm, which is a medical machine with a large c shaped metal arm  has no assigned box
+prompt  backpack  has no assigned box
+saving frame  6  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2842)
+prompt  chair  has no assigned box
+prompt  monitor  has no assigned box
+saving frame  6
+processing frame Nr. 6
+get_prompt:  torch.cuda.memory_allocated: 4.212703GB
+formulate mask:  torch.cuda.memory_allocated: 4.217213GB
+prompts in frame 6 : tensor([ 6,  4, -1, -1,  6, -1,  6])
+previous assign:  tensor([ 5,  4, -1, -1,  5, -1, -1])
+saving frame  7  with prompt  table with sheet on it _confidence tensor(0.3647)
+prompt  c arm, which is a medical machine with a large c shaped metal arm  has no assigned box
+prompt  backpack  has no assigned box
+saving frame  7  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2703)
+prompt  chair  has no assigned box
+saving frame  7  with prompt  monitor _confidence tensor(0.4223)
+saving frame  7
+processing frame Nr. 7
+get_prompt:  torch.cuda.memory_allocated: 4.212703GB
+formulate mask:  torch.cuda.memory_allocated: 4.217213GB
+prompts in frame 7 : tensor([ 7,  4,  7, -1,  7, -1,  6])
+previous assign:  tensor([ 6,  4, -1, -1,  6, -1,  6])
+saving frame  8  with prompt  table with sheet on it _confidence tensor(0.5633)
+saving frame  8  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.2803)
+prompt  backpack  has no assigned box
+saving frame  8  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3242)
+prompt  chair  has no assigned box
+saving frame  8
+processing frame Nr. 8
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.219468GB
+prompts in frame 8 : tensor([ 7,  8,  7, -1,  8,  8,  6])
+previous assign:  tensor([ 7,  4,  7, -1,  7, -1,  6])
+saving frame  9  with prompt  a grey shelf with a pole on it _confidence tensor(0.4279)
+prompt  backpack  has no assigned box
+saving frame  9  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5751)
+saving frame  9  with prompt  chair _confidence tensor(0.3217)
+saving frame  9
+processing frame Nr. 9
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217777GB
+prompts in frame 9 : tensor([ 7,  9,  7, -1,  8,  9,  9])
+previous assign:  tensor([ 7,  8,  7, -1,  8,  8,  6])
+saving frame  10  with prompt  a grey shelf with a pole on it _confidence tensor(0.4533)
+prompt  backpack  has no assigned box
+saving frame  10  with prompt  chair _confidence tensor(0.6303)
+saving frame  10  with prompt  monitor _confidence tensor(0.2996)
+saving frame  10
+processing frame Nr. 10
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+prompts in frame 10 : tensor([ 7,  9,  7, -1,  8,  9,  9])
+previous assign:  tensor([ 7,  9,  7, -1,  8,  9,  9])
+prompt  backpack  has no assigned box
+saving frame  11
+processing frame Nr. 11
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217777GB
+prompts in frame 11 : tensor([ 7,  9,  7, -1,  8, 11, 11])
+previous assign:  tensor([ 7,  9,  7, -1,  8,  9,  9])
+prompt  backpack  has no assigned box
+saving frame  12  with prompt  chair _confidence tensor(0.3081)
+saving frame  12  with prompt  monitor _confidence tensor(0.3681)
+saving frame  12
+processing frame Nr. 12
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218902GB
+prompts in frame 12 : tensor([12,  9,  7, -1, 12, 11, 11])
+previous assign:  tensor([ 7,  9,  7, -1,  8, 11, 11])
+saving frame  13  with prompt  table with sheet on it _confidence tensor(0.3121)
+prompt  backpack  has no assigned box
+saving frame  13  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2732)
+saving frame  13
+processing frame Nr. 13
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216084GB
+prompts in frame 13 : tensor([12,  9,  7, -1, 12, 11, 13])
+previous assign:  tensor([12,  9,  7, -1, 12, 11, 11])
+prompt  backpack  has no assigned box
+saving frame  14  with prompt  monitor _confidence tensor(0.2709)
+saving frame  14
+processing frame Nr. 14
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.214960GB
+prompts in frame 14 : tensor([12,  9,  7, -1, 14, 11, 13])
+previous assign:  tensor([12,  9,  7, -1, 12, 11, 13])
+prompt  backpack  has no assigned box
+saving frame  15  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2735)
+saving frame  15
+processing frame Nr. 15
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.214397GB
+prompts in frame 15 : tensor([12,  9,  7, -1, 15, 11, 13])
+previous assign:  tensor([12,  9,  7, -1, 14, 11, 13])
+prompt  backpack  has no assigned box
+saving frame  16  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5355)
+saving frame  16
+processing frame Nr. 16
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.214958GB
+prompts in frame 16 : tensor([12,  9,  7, -1, 16, 11, 16])
+previous assign:  tensor([12,  9,  7, -1, 15, 11, 13])
+prompt  backpack  has no assigned box
+saving frame  17  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3392)
+saving frame  17  with prompt  monitor _confidence tensor(0.5096)
+saving frame  17
+processing frame Nr. 17
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 17 : tensor([12,  9,  7, -1, 16, 11, 16])
+previous assign:  tensor([12,  9,  7, -1, 16, 11, 16])
+prompt  backpack  has no assigned box
+saving frame  18
+processing frame Nr. 18
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 18 : tensor([12,  9,  7, -1, 16, 11, 16])
+previous assign:  tensor([12,  9,  7, -1, 16, 11, 16])
+prompt  backpack  has no assigned box
+saving frame  19
+processing frame Nr. 19
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 19 : tensor([12,  9,  7, -1, 16, 11, 16])
+previous assign:  tensor([12,  9,  7, -1, 16, 11, 16])
+prompt  backpack  has no assigned box
+saving frame  20
+processing frame Nr. 20
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216651GB
+prompts in frame 20 : tensor([12, 20,  7, -1, 20, 11, 16])
+previous assign:  tensor([12,  9,  7, -1, 16, 11, 16])
+saving frame  21  with prompt  a grey shelf with a pole on it _confidence tensor(0.2836)
+prompt  backpack  has no assigned box
+saving frame  21  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3711)
+saving frame  21
+processing frame Nr. 21
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 21 : tensor([12, 20,  7, -1, 20, 11, 16])
+previous assign:  tensor([12, 20,  7, -1, 20, 11, 16])
+prompt  backpack  has no assigned box
+saving frame  22
+processing frame Nr. 22
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.215524GB
+prompts in frame 22 : tensor([12, 22, 22, -1, 22, 22, 16])
+previous assign:  tensor([12, 20,  7, -1, 20, 11, 16])
+saving frame  23  with prompt  a grey shelf with a pole on it _confidence tensor(0.4372)
+saving frame  23  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3678)
+prompt  backpack  has no assigned box
+saving frame  23  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.6064)
+saving frame  23  with prompt  chair _confidence tensor(0.6469)
+saving frame  23
+processing frame Nr. 23
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.215517GB
+prompts in frame 23 : tensor([12, 23, 23, -1, 23, 22, 16])
+previous assign:  tensor([12, 22, 22, -1, 22, 22, 16])
+saving frame  24  with prompt  a grey shelf with a pole on it _confidence tensor(0.3236)
+saving frame  24  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.4197)
+prompt  backpack  has no assigned box
+saving frame  24  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3642)
+saving frame  24
+processing frame Nr. 24
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217778GB
+prompts in frame 24 : tensor([12, 23, 24, -1, 23, 22, 16])
+previous assign:  tensor([12, 23, 23, -1, 23, 22, 16])
+saving frame  25  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3296)
+prompt  backpack  has no assigned box
+saving frame  25
+processing frame Nr. 25
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.222288GB
+prompts in frame 25 : tensor([25, 25, 24, 25, 23, 25, 25])
+previous assign:  tensor([12, 23, 24, -1, 23, 22, 16])
+saving frame  26  with prompt  table with sheet on it _confidence tensor(0.3310)
+saving frame  26  with prompt  a grey shelf with a pole on it _confidence tensor(0.3572)
+saving frame  26  with prompt  backpack _confidence tensor(0.4092)
+saving frame  26  with prompt  chair _confidence tensor(0.4965)
+saving frame  26  with prompt  monitor _confidence tensor(0.2822)
+saving frame  26
+processing frame Nr. 26
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217214GB
+prompts in frame 26 : tensor([26, 25, 24, 25, 26, 25, 25])
+previous assign:  tensor([25, 25, 24, 25, 23, 25, 25])
+saving frame  27  with prompt  table with sheet on it _confidence tensor(0.2753)
+saving frame  27  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3868)
+saving frame  27
+processing frame Nr. 27
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.221159GB
+prompts in frame 27 : tensor([26, 25, 24, 25, 26, 27, 25])
+previous assign:  tensor([26, 25, 24, 25, 26, 25, 25])
+saving frame  28  with prompt  chair _confidence tensor(0.2926)
+saving frame  28
+processing frame Nr. 28
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+prompts in frame 28 : tensor([26, 25, 24, 25, 26, 27, 25])
+previous assign:  tensor([26, 25, 24, 25, 26, 27, 25])
+saving frame  29
+processing frame Nr. 29
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217778GB
+prompts in frame 29 : tensor([26, 29, 24, 25, 29, 29, 29])
+previous assign:  tensor([26, 25, 24, 25, 26, 27, 25])
+saving frame  30  with prompt  a grey shelf with a pole on it _confidence tensor(0.3577)
+saving frame  30  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3846)
+saving frame  30  with prompt  chair _confidence tensor(0.4262)
+saving frame  30  with prompt  monitor _confidence tensor(0.2814)
+saving frame  30
+processing frame Nr. 30
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 30 : tensor([26, 29, 24, 25, 30, 29, 29])
+previous assign:  tensor([26, 29, 24, 25, 29, 29, 29])
+saving frame  31  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3030)
+saving frame  31
+processing frame Nr. 31
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 31 : tensor([26, 29, 24, 25, 30, 29, 29])
+previous assign:  tensor([26, 29, 24, 25, 30, 29, 29])
+saving frame  32
+processing frame Nr. 32
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 32 : tensor([32, 29, 24, 25, 30, 29, 29])
+previous assign:  tensor([26, 29, 24, 25, 30, 29, 29])
+saving frame  33  with prompt  table with sheet on it _confidence tensor(0.4731)
+saving frame  33
+processing frame Nr. 33
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.214396GB
+prompts in frame 33 : tensor([32, 33, 24, 25, 30, 29, 29])
+previous assign:  tensor([32, 29, 24, 25, 30, 29, 29])
+saving frame  34  with prompt  a grey shelf with a pole on it _confidence tensor(0.2875)
+saving frame  34
+processing frame Nr. 34
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.217215GB
+prompts in frame 34 : tensor([34, 33, 24, 25, 34, 29, 29])
+previous assign:  tensor([32, 33, 24, 25, 30, 29, 29])
+saving frame  35  with prompt  table with sheet on it _confidence tensor(0.7387)
+saving frame  35  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3462)
+saving frame  35
+processing frame Nr. 35
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 35 : tensor([34, 33, 24, 25, 34, 29, 29])
+previous assign:  tensor([34, 33, 24, 25, 34, 29, 29])
+saving frame  36
+processing frame Nr. 36
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216651GB
+prompts in frame 36 : tensor([34, 33, 24, 25, 34, 29, 36])
+previous assign:  tensor([34, 33, 24, 25, 34, 29, 29])
+saving frame  37  with prompt  monitor _confidence tensor(0.4091)
+saving frame  37
+processing frame Nr. 37
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 37 : tensor([34, 33, 24, 25, 34, 29, 36])
+previous assign:  tensor([34, 33, 24, 25, 34, 29, 36])
+saving frame  38
+processing frame Nr. 38
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 38 : tensor([34, 33, 24, 25, 34, 29, 36])
+previous assign:  tensor([34, 33, 24, 25, 34, 29, 36])
+saving frame  39
+processing frame Nr. 39
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 39 : tensor([34, 33, 24, 25, 34, 29, 36])
+previous assign:  tensor([34, 33, 24, 25, 34, 29, 36])
+saving frame  40
+processing frame Nr. 40
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.218906GB
+prompts in frame 40 : tensor([40, 33, 24, 25, 40, 40, 40])
+previous assign:  tensor([34, 33, 24, 25, 34, 29, 36])
+saving frame  41  with prompt  table with sheet on it _confidence tensor(0.3152)
+saving frame  41  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3820)
+saving frame  41  with prompt  chair _confidence tensor(0.2834)
+saving frame  41  with prompt  monitor _confidence tensor(0.4193)
+saving frame  41
+processing frame Nr. 41
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+prompts in frame 41 : tensor([40, 33, 24, 25, 40, 40, 40])
+previous assign:  tensor([40, 33, 24, 25, 40, 40, 40])
+saving frame  42
+processing frame Nr. 42
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+prompts in frame 42 : tensor([40, 33, 24, 25, 40, 40, 40])
+previous assign:  tensor([40, 33, 24, 25, 40, 40, 40])
+saving frame  43
+processing frame Nr. 43
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216648GB
+prompts in frame 43 : tensor([43, 33, 24, 25, 43, 40, 40])
+previous assign:  tensor([40, 33, 24, 25, 40, 40, 40])
+saving frame  44  with prompt  table with sheet on it _confidence tensor(0.3886)
+saving frame  44  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3253)
+saving frame  44
+processing frame Nr. 44
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 44 : tensor([43, 33, 24, 25, 43, 40, 40])
+previous assign:  tensor([43, 33, 24, 25, 43, 40, 40])
+saving frame  45
+processing frame Nr. 45
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216651GB
+prompts in frame 45 : tensor([43, 33, 45, 25, 43, 40, 40])
+previous assign:  tensor([43, 33, 24, 25, 43, 40, 40])
+saving frame  46  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3409)
+saving frame  46
+processing frame Nr. 46
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 46 : tensor([43, 33, 45, 25, 43, 40, 40])
+previous assign:  tensor([43, 33, 45, 25, 43, 40, 40])
+saving frame  47
+processing frame Nr. 47
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 47 : tensor([43, 33, 45, 25, 43, 40, 40])
+previous assign:  tensor([43, 33, 45, 25, 43, 40, 40])
+saving frame  48
+processing frame Nr. 48
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.217215GB
+prompts in frame 48 : tensor([43, 33, 45, 48, 43, 48, 40])
+previous assign:  tensor([43, 33, 45, 25, 43, 40, 40])
+saving frame  49  with prompt  backpack _confidence tensor(0.5554)
+saving frame  49  with prompt  chair _confidence tensor(0.7412)
+saving frame  49
+processing frame Nr. 49
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216084GB
+prompts in frame 49 : tensor([43, 33, 49, 49, 49, 48, 49])
+previous assign:  tensor([43, 33, 45, 48, 43, 48, 40])
+saving frame  50  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.4308)
+saving frame  50  with prompt  backpack _confidence tensor(0.5965)
+saving frame  50  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3975)
+saving frame  50  with prompt  monitor _confidence tensor(0.3035)
+saving frame  50
+processing frame Nr. 50
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 50 : tensor([50, 33, 49, 50, 49, 48, 50])
+previous assign:  tensor([43, 33, 49, 49, 49, 48, 49])
+saving frame  51  with prompt  table with sheet on it _confidence tensor(0.3063)
+saving frame  51  with prompt  backpack _confidence tensor(0.5072)
+saving frame  51  with prompt  monitor _confidence tensor(0.4337)
+saving frame  51
+processing frame Nr. 51
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216650GB
+prompts in frame 51 : tensor([50, 51, 49, 51, 49, 48, 50])
+previous assign:  tensor([50, 33, 49, 50, 49, 48, 50])
+saving frame  52  with prompt  a grey shelf with a pole on it _confidence tensor(0.3395)
+saving frame  52  with prompt  backpack _confidence tensor(0.3168)
+saving frame  52
+processing frame Nr. 52
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217778GB
+prompts in frame 52 : tensor([52, 52, 49, 52, 49, 52, 50])
+previous assign:  tensor([50, 51, 49, 51, 49, 48, 50])
+saving frame  53  with prompt  table with sheet on it _confidence tensor(0.2869)
+saving frame  53  with prompt  a grey shelf with a pole on it _confidence tensor(0.3244)
+saving frame  53  with prompt  backpack _confidence tensor(0.4215)
+saving frame  53  with prompt  chair _confidence tensor(0.2716)
+saving frame  53
+processing frame Nr. 53
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217214GB
+prompts in frame 53 : tensor([52, 53, 49, 53, 49, 52, 50])
+previous assign:  tensor([52, 52, 49, 52, 49, 52, 50])
+saving frame  54  with prompt  a grey shelf with a pole on it _confidence tensor(0.4058)
+saving frame  54  with prompt  backpack _confidence tensor(0.3144)
+saving frame  54
+processing frame Nr. 54
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217214GB
+prompts in frame 54 : tensor([52, 54, 49, 53, 49, 52, 50])
+previous assign:  tensor([52, 53, 49, 53, 49, 52, 50])
+saving frame  55  with prompt  a grey shelf with a pole on it _confidence tensor(0.3586)
+saving frame  55
+processing frame Nr. 55
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 55 : tensor([52, 54, 49, 53, 49, 52, 50])
+previous assign:  tensor([52, 54, 49, 53, 49, 52, 50])
+saving frame  56
+processing frame Nr. 56
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 56 : tensor([52, 56, 49, 53, 49, 56, 50])
+previous assign:  tensor([52, 54, 49, 53, 49, 52, 50])
+saving frame  57  with prompt  a grey shelf with a pole on it _confidence tensor(0.2757)
+saving frame  57  with prompt  chair _confidence tensor(0.6144)
+saving frame  57
+processing frame Nr. 57
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.217215GB
+prompts in frame 57 : tensor([52, 56, 49, 53, 49, 57, 57])
+previous assign:  tensor([52, 56, 49, 53, 49, 56, 50])
+saving frame  58  with prompt  chair _confidence tensor(0.7583)
+saving frame  58  with prompt  monitor _confidence tensor(0.2959)
+saving frame  58
+processing frame Nr. 58
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.217778GB
+prompts in frame 58 : tensor([52, 58, 49, 53, 58, 58, 57])
+previous assign:  tensor([52, 56, 49, 53, 49, 57, 57])
+saving frame  59  with prompt  a grey shelf with a pole on it _confidence tensor(0.2935)
+saving frame  59  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3829)
+saving frame  59  with prompt  chair _confidence tensor(0.8583)
+saving frame  59
+processing frame Nr. 59
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216648GB
+prompts in frame 59 : tensor([52, 58, 49, 53, 59, 59, 59])
+previous assign:  tensor([52, 58, 49, 53, 58, 58, 57])
+saving frame  60  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3061)
+saving frame  60  with prompt  chair _confidence tensor(0.7729)
+saving frame  60  with prompt  monitor _confidence tensor(0.3856)
+saving frame  60
+processing frame Nr. 60
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216651GB
+prompts in frame 60 : tensor([52, 58, 49, 53, 59, 60, 60])
+previous assign:  tensor([52, 58, 49, 53, 59, 59, 59])
+saving frame  61  with prompt  chair _confidence tensor(0.6306)
+saving frame  61  with prompt  monitor _confidence tensor(0.3671)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          formulate mask:  torch.cuda.memory_allocated: 4.217211GB
+prompts in frame 244 : tensor([243, 244, 237, 222, 244, 236, 243])
+previous assign:  tensor([243, 243, 237, 222, 243, 236, 243])
+saving frame  245  with prompt  a grey shelf with a pole on it _confidence tensor(0.4116)
+saving frame  245  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2884)
+saving frame  98
+processing frame Nr. 245
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.217215GB
+prompts in frame 245 : tensor([243, 245, 237, 245, 244, 236, 243])
+previous assign:  tensor([243, 244, 237, 222, 244, 236, 243])
+saving frame  246  with prompt  a grey shelf with a pole on it _confidence tensor(0.3303)
+saving frame  246  with prompt  backpack _confidence tensor(0.6007)
+saving frame  98
+processing frame Nr. 246
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216651GB
+prompts in frame 246 : tensor([243, 246, 237, 246, 246, 236, 243])
+previous assign:  tensor([243, 245, 237, 245, 244, 236, 243])
+saving frame  247  with prompt  a grey shelf with a pole on it _confidence tensor(0.3989)
+saving frame  247  with prompt  backpack _confidence tensor(0.5691)
+saving frame  247  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.4656)
+saving frame  98
+processing frame Nr. 247
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218341GB
+prompts in frame 247 : tensor([243, 247, 247, 246, 247, 236, 247])
+previous assign:  tensor([243, 246, 237, 246, 246, 236, 243])
+saving frame  248  with prompt  a grey shelf with a pole on it _confidence tensor(0.4727)
+saving frame  248  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3097)
+saving frame  248  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3010)
+saving frame  248  with prompt  monitor _confidence tensor(0.4623)
+saving frame  99
+processing frame Nr. 248
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216650GB
+prompts in frame 248 : tensor([248, 248, 247, 246, 248, 236, 248])
+previous assign:  tensor([243, 247, 247, 246, 247, 236, 247])
+saving frame  249  with prompt  table with sheet on it _confidence tensor(0.2759)
+saving frame  249  with prompt  a grey shelf with a pole on it _confidence tensor(0.3625)
+saving frame  249  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3383)
+saving frame  249  with prompt  monitor _confidence tensor(0.4622)
+saving frame  99
+processing frame Nr. 249
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 249 : tensor([249, 248, 249, 246, 248, 236, 248])
+previous assign:  tensor([248, 248, 247, 246, 248, 236, 248])
+saving frame  250  with prompt  table with sheet on it _confidence tensor(0.2792)
+saving frame  250  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3129)
+saving frame  100
+processing frame Nr. 250
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216084GB
+prompts in frame 250 : tensor([250, 250, 250, 246, 248, 236, 248])
+previous assign:  tensor([249, 248, 249, 246, 248, 236, 248])
+saving frame  251  with prompt  table with sheet on it _confidence tensor(0.5073)
+saving frame  251  with prompt  a grey shelf with a pole on it _confidence tensor(0.3030)
+saving frame  251  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3440)
+saving frame  100
+processing frame Nr. 251
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.215520GB
+prompts in frame 251 : tensor([251, 250, 250, 246, 251, 236, 248])
+previous assign:  tensor([250, 250, 250, 246, 248, 236, 248])
+saving frame  252  with prompt  table with sheet on it _confidence tensor(0.5366)
+saving frame  252  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3476)
+saving frame  100
+processing frame Nr. 252
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 252 : tensor([252, 250, 252, 246, 252, 236, 248])
+previous assign:  tensor([251, 250, 250, 246, 251, 236, 248])
+saving frame  253  with prompt  table with sheet on it _confidence tensor(0.3441)
+saving frame  253  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.2910)
+saving frame  253  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3512)
+saving frame  101
+processing frame Nr. 253
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216648GB
+prompts in frame 253 : tensor([253, 253, 253, 246, 253, 236, 248])
+previous assign:  tensor([252, 250, 252, 246, 252, 236, 248])
+saving frame  254  with prompt  table with sheet on it _confidence tensor(0.4798)
+saving frame  254  with prompt  a grey shelf with a pole on it _confidence tensor(0.2944)
+saving frame  254  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3161)
+saving frame  254  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.4356)
+saving frame  101
+processing frame Nr. 254
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217211GB
+prompts in frame 254 : tensor([254, 254, 253, 246, 254, 254, 248])
+previous assign:  tensor([253, 253, 253, 246, 253, 236, 248])
+saving frame  255  with prompt  table with sheet on it _confidence tensor(0.2807)
+saving frame  255  with prompt  a grey shelf with a pole on it _confidence tensor(0.2789)
+saving frame  255  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5080)
+saving frame  255  with prompt  chair _confidence tensor(0.6167)
+saving frame  102
+processing frame Nr. 255
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217214GB
+prompts in frame 255 : tensor([255, 255, 253, 246, 255, 254, 248])
+previous assign:  tensor([254, 254, 253, 246, 254, 254, 248])
+saving frame  256  with prompt  table with sheet on it _confidence tensor(0.3231)
+saving frame  256  with prompt  a grey shelf with a pole on it _confidence tensor(0.3581)
+saving frame  256  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3770)
+saving frame  102
+processing frame Nr. 256
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216648GB
+prompts in frame 256 : tensor([256, 256, 253, 246, 256, 254, 248])
+previous assign:  tensor([255, 255, 253, 246, 255, 254, 248])
+saving frame  257  with prompt  table with sheet on it _confidence tensor(0.4734)
+saving frame  257  with prompt  a grey shelf with a pole on it _confidence tensor(0.4029)
+saving frame  257  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3221)
+saving frame  102
+processing frame Nr. 257
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 257 : tensor([257, 257, 257, 257, 256, 254, 248])
+previous assign:  tensor([256, 256, 253, 246, 256, 254, 248])
+saving frame  258  with prompt  table with sheet on it _confidence tensor(0.6056)
+saving frame  258  with prompt  a grey shelf with a pole on it _confidence tensor(0.3444)
+saving frame  258  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3647)
+saving frame  258  with prompt  backpack _confidence tensor(0.3372)
+saving frame  103
+processing frame Nr. 258
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217778GB
+prompts in frame 258 : tensor([258, 257, 257, 258, 258, 254, 248])
+previous assign:  tensor([257, 257, 257, 257, 256, 254, 248])
+saving frame  259  with prompt  table with sheet on it _confidence tensor(0.5638)
+saving frame  259  with prompt  backpack _confidence tensor(0.4510)
+saving frame  259  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3894)
+saving frame  103
+processing frame Nr. 259
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217208GB
+prompts in frame 259 : tensor([259, 257, 257, 258, 258, 254, 248])
+previous assign:  tensor([258, 257, 257, 258, 258, 254, 248])
+saving frame  260  with prompt  table with sheet on it _confidence tensor(0.5803)
+saving frame  104
+processing frame Nr. 260
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.218342GB
+prompts in frame 260 : tensor([260, 260, 257, 258, 260, 260, 248])
+previous assign:  tensor([259, 257, 257, 258, 258, 254, 248])
+saving frame  261  with prompt  table with sheet on it _confidence tensor(0.3561)
+saving frame  261  with prompt  a grey shelf with a pole on it _confidence tensor(0.3203)
+saving frame  261  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.7586)
+saving frame  261  with prompt  chair _confidence tensor(0.2925)
+saving frame  104
+processing frame Nr. 261
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217214GB
+prompts in frame 261 : tensor([261, 260, 261, 258, 261, 260, 248])
+previous assign:  tensor([260, 260, 257, 258, 260, 260, 248])
+saving frame  262  with prompt  table with sheet on it _confidence tensor(0.3107)
+saving frame  262  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.4379)
+saving frame  262  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.7935)
+saving frame  104
+processing frame Nr. 262
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218905GB
+prompts in frame 262 : tensor([262, 260, 261, 258, 262, 262, 262])
+previous assign:  tensor([261, 260, 261, 258, 261, 260, 248])
+saving frame  263  with prompt  table with sheet on it _confidence tensor(0.4886)
+saving frame  263  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.8014)
+saving frame  263  with prompt  chair _confidence tensor(0.2910)
+saving frame  263  with prompt  monitor _confidence tensor(0.5264)
+saving frame  105
+processing frame Nr. 263
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218905GB
+prompts in frame 263 : tensor([263, 260, 261, 258, 263, 263, 262])
+previous assign:  tensor([262, 260, 261, 258, 262, 262, 262])
+saving frame  264  with prompt  table with sheet on it _confidence tensor(0.2914)
+saving frame  264  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.8045)
+saving frame  264  with prompt  chair _confidence tensor(0.3536)
+saving frame  105
+processing frame Nr. 264
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.218342GB
+prompts in frame 264 : tensor([264, 260, 261, 258, 264, 264, 262])
+previous assign:  tensor([263, 260, 261, 258, 263, 263, 262])
+saving frame  265  with prompt  table with sheet on it _confidence tensor(0.4049)
+saving frame  265  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.7593)
+saving frame  265  with prompt  chair _confidence tensor(0.3226)
+saving frame  106
+processing frame Nr. 265
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.219469GB
+prompts in frame 265 : tensor([265, 260, 261, 258, 265, 265, 265])
+previous assign:  tensor([264, 260, 261, 258, 264, 264, 262])
+saving frame  266  with prompt  table with sheet on it _confidence tensor(0.2860)
+saving frame  266  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.7559)
+saving frame  266  with prompt  chair _confidence tensor(0.3039)
+saving frame  266  with prompt  monitor _confidence tensor(0.4897)
+saving frame  106
+processing frame Nr. 266
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.220032GB
+prompts in frame 266 : tensor([266, 266, 261, 266, 266, 266, 266])
+previous assign:  tensor([265, 260, 261, 258, 265, 265, 265])
+saving frame  267  with prompt  table with sheet on it _confidence tensor(0.2709)
+saving frame  267  with prompt  a grey shelf with a pole on it _confidence tensor(0.3558)
+saving frame  267  with prompt  backpack _confidence tensor(0.4589)
+saving frame  267  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.8279)
+saving frame  267  with prompt  chair _confidence tensor(0.2724)
+saving frame  267  with prompt  monitor _confidence tensor(0.4546)
+saving frame  106
+processing frame Nr. 267
+get_prompt:  torch.cuda.memory_allocated: 4.212703GB
+formulate mask:  torch.cuda.memory_allocated: 4.219468GB
+prompts in frame 267 : tensor([267, 267, 261, 267, 267, 267, 266])
+previous assign:  tensor([266, 266, 261, 266, 266, 266, 266])
+saving frame  268  with prompt  table with sheet on it _confidence tensor(0.4308)
+saving frame  268  with prompt  a grey shelf with a pole on it _confidence tensor(0.3992)
+saving frame  268  with prompt  backpack _confidence tensor(0.3692)
+saving frame  268  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.8363)
+saving frame  268  with prompt  chair _confidence tensor(0.2914)
+saving frame  107
+processing frame Nr. 268
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218341GB
+prompts in frame 268 : tensor([268, 267, 261, 267, 268, 268, 268])
+previous assign:  tensor([267, 267, 261, 267, 267, 267, 266])
+saving frame  269  with prompt  table with sheet on it _confidence tensor(0.2736)
+saving frame  269  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.7452)
+saving frame  269  with prompt  chair _confidence tensor(0.2826)
+saving frame  269  with prompt  monitor _confidence tensor(0.5543)
+saving frame  107
+processing frame Nr. 269
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217777GB
+prompts in frame 269 : tensor([269, 267, 261, 267, 269, 269, 269])
+previous assign:  tensor([268, 267, 261, 267, 268, 268, 268])
+saving frame  270  with prompt  table with sheet on it _confidence tensor(0.4469)
+saving frame  270  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.7369)
+saving frame  270  with prompt  chair _confidence tensor(0.2837)
+saving frame  270  with prompt  monitor _confidence tensor(0.4909)
+saving frame  108
+processing frame Nr. 270
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218338GB
+prompts in frame 270 : tensor([270, 267, 261, 267, 270, 270, 270])
+previous assign:  tensor([269, 267, 261, 267, 269, 269, 269])
+saving frame  271  with prompt  table with sheet on it _confidence tensor(0.3063)
+saving frame  271  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.6597)
+saving frame  271  with prompt  chair _confidence tensor(0.4293)
+saving frame  271  with prompt  monitor _confidence tensor(0.4798)
+saving frame  108
+processing frame Nr. 271
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217777GB
+prompts in frame 271 : tensor([271, 267, 261, 267, 271, 271, 271])
+previous assign:  tensor([270, 267, 261, 267, 270, 270, 270])
+saving frame  272  with prompt  table with sheet on it _confidence tensor(0.4512)
+saving frame  272  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.7068)
+saving frame  272  with prompt  chair _confidence tensor(0.3411)
+saving frame  272  with prompt  monitor _confidence tensor(0.2780)
+saving frame  108
+processing frame Nr. 272
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217777GB
+prompts in frame 272 : tensor([272, 272, 261, 267, 272, 272, 272])
+previous assign:  tensor([271, 267, 261, 267, 271, 271, 271])
+saving frame  273  with prompt  table with sheet on it _confidence tensor(0.2743)
+saving frame  273  with prompt  a grey shelf with a pole on it _confidence tensor(0.2927)
+saving frame  273  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.6525)
+saving frame  273  with prompt  chair _confidence tensor(0.3568)
+saving frame  273  with prompt  monitor _confidence tensor(0.3024)
+saving frame  109
+processing frame Nr. 273
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217214GB
+prompts in frame 273 : tensor([273, 272, 261, 267, 273, 273, 273])
+previous assign:  tensor([272, 272, 261, 267, 272, 272, 272])
+saving frame  274  with prompt  table with sheet on it _confidence tensor(0.3600)
+saving frame  274  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.6152)
+saving frame  274  with prompt  chair _confidence tensor(0.4270)
+saving frame  274  with prompt  monitor _confidence tensor(0.5269)
+saving frame  109
+processing frame Nr. 274
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217775GB
+prompts in frame 274 : tensor([273, 272, 274, 267, 274, 274, 274])
+previous assign:  tensor([273, 272, 261, 267, 273, 273, 273])
+saving frame  275  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.2758)
+saving frame  275  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5361)
+saving frame  275  with prompt  chair _confidence tensor(0.3042)
+saving frame  275  with prompt  monitor _confidence tensor(0.5296)
+saving frame  110
+processing frame Nr. 275
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218338GB
+prompts in frame 275 : tensor([275, 272, 274, 275, 275, 275, 275])
+previous assign:  tensor([273, 272, 274, 267, 274, 274, 274])
+saving frame  276  with prompt  table with sheet on it _confidence tensor(0.6732)
+saving frame  276  with prompt  backpack _confidence tensor(0.2867)
+saving frame  276  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.6565)
+saving frame  276  with prompt  chair _confidence tensor(0.3003)
+saving frame  276  with prompt  monitor _confidence tensor(0.3540)
+saving frame  110
+processing frame Nr. 276
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216650GB
+prompts in frame 276 : tensor([276, 272, 274, 275, 276, 276, 276])
+previous assign:  tensor([275, 272, 274, 275, 275, 275, 275])
+saving frame  277  with prompt  table with sheet on it _confidence tensor(0.6559)
+saving frame  277  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2810)
+saving frame  277  with prompt  chair _confidence tensor(0.5726)
+saving frame  277  with prompt  monitor _confidence tensor(0.4280)
+saving frame  110
+processing frame Nr. 277
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217214GB
+prompts in frame 277 : tensor([277, 272, 274, 275, 277, 277, 277])
+previous assign:  tensor([276, 272, 274, 275, 276, 276, 276])
+saving frame  278  with prompt  table with sheet on it _confidence tensor(0.3186)
+saving frame  278  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3023)
+saving frame  278  with prompt  chair _confidence tensor(0.4079)
+saving frame  278  with prompt  monitor _confidence tensor(0.5365)
+saving frame  111
+processing frame Nr. 278
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216650GB
+prompts in frame 278 : tensor([278, 272, 274, 275, 278, 278, 278])
+previous assign:  tensor([277, 272, 274, 275, 277, 277, 277])
+saving frame  279  with prompt  table with sheet on it _confidence tensor(0.3039)
+saving frame  279  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3022)
+saving frame  279  with prompt  chair _confidence tensor(0.6404)
+saving frame  279  with prompt  monitor _confidence tensor(0.5348)
+saving frame  111
+processing frame Nr. 279
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217214GB
+prompts in frame 279 : tensor([279, 272, 274, 275, 279, 279, 279])
+previous assign:  tensor([278, 272, 274, 275, 278, 278, 278])
+saving frame  280  with prompt  table with sheet on it _confidence tensor(0.3533)
+saving frame  280  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2945)
+saving frame  280  with prompt  chair _confidence tensor(0.7000)
+saving frame  280  with prompt  monitor _confidence tensor(0.5120)
+saving frame  112
+processing frame Nr. 280
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218902GB
+prompts in frame 280 : tensor([280, 272, 274, 275, 280, 280, 279])
+previous assign:  tensor([279, 272, 274, 275, 279, 279, 279])
+saving frame  281  with prompt  table with sheet on it _confidence tensor(0.4433)
+saving frame  281  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2727)
+saving frame  281  with prompt  chair _confidence tensor(0.6802)
+saving frame  112
+processing frame Nr. 281
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.217778GB
+prompts in frame 281 : tensor([281, 281, 274, 275, 281, 281, 281])
+previous assign:  tensor([280, 272, 274, 275, 280, 280, 279])
+saving frame  282  with prompt  table with sheet on it _confidence tensor(0.6630)
+saving frame  282  with prompt  a grey shelf with a pole on it _confidence tensor(0.3452)
+saving frame  282  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2964)
+saving frame  282  with prompt  chair _confidence tensor(0.6899)
+saving frame  282  with prompt  monitor _confidence tensor(0.2952)
+saving frame  112
+processing frame Nr. 282
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217774GB
+prompts in frame 282 : tensor([282, 281, 274, 275, 282, 282, 282])
+previous assign:  tensor([281, 281, 274, 275, 281, 281, 281])
+saving frame  283  with prompt  table with sheet on it _confidence tensor(0.4766)
+saving frame  283  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5434)
+saving frame  283  with prompt  chair _confidence tensor(0.5033)
+saving frame  283  with prompt  monitor _confidence tensor(0.3174)
+saving frame  113
+processing frame Nr. 283
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.220029GB
+prompts in frame 283 : tensor([283, 281, 274, 275, 283, 283, 283])
+previous assign:  tensor([282, 281, 274, 275, 282, 282, 282])
+saving frame  284  with prompt  table with sheet on it _confidence tensor(0.2767)
+saving frame  284  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2947)
+saving frame  284  with prompt  chair _confidence tensor(0.7056)
+saving frame  284  with prompt  monitor _confidence tensor(0.3211)
+saving frame  113
+processing frame Nr. 284
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.219466GB
+prompts in frame 284 : tensor([284, 284, 274, 275, 284, 284, 284])
+previous assign:  tensor([283, 281, 274, 275, 283, 283, 283])
+saving frame  285  with prompt  table with sheet on it _confidence tensor(0.2928)
+saving frame  285  with prompt  a grey shelf with a pole on it _confidence tensor(0.3638)
+saving frame  285  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2825)
+saving frame  285  with prompt  chair _confidence tensor(0.5586)
+saving frame  285  with prompt  monitor _confidence tensor(0.3155)
+saving frame  114
+processing frame Nr. 285
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218902GB
+prompts in frame 285 : tensor([285, 284, 274, 275, 285, 285, 285])
+previous assign:  tensor([284, 284, 274, 275, 284, 284, 284])
+saving frame  286  with prompt  table with sheet on it _confidence tensor(0.2942)
+saving frame  286  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5027)
+saving frame  286  with prompt  chair _confidence tensor(0.5620)
+saving frame  286  with prompt  monitor _confidence tensor(0.3293)
+saving frame  114
+processing frame Nr. 286
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217772GB
+prompts in frame 286 : tensor([286, 284, 274, 275, 286, 285, 285])
+previous assign:  tensor([285, 284, 274, 275, 285, 285, 285])
+saving frame  287  with prompt  table with sheet on it _confidence tensor(0.4089)
+saving frame  287  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5179)
+saving frame  114
+processing frame Nr. 287
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 287 : tensor([286, 287, 274, 275, 286, 285, 285])
+previous assign:  tensor([286, 284, 274, 275, 286, 285, 285])
+saving frame  288  with prompt  a grey shelf with a pole on it _confidence tensor(0.4174)
+saving frame  115
+processing frame Nr. 288
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.214960GB
+prompts in frame 288 : tensor([286, 287, 288, 275, 286, 285, 285])
+previous assign:  tensor([286, 287, 274, 275, 286, 285, 285])
+saving frame  289  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.5023)
+saving frame  115
+processing frame Nr. 289
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.215524GB
+prompts in frame 289 : tensor([286, 287, 289, 275, 289, 285, 285])
+previous assign:  tensor([286, 287, 288, 275, 286, 285, 285])
+saving frame  290  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.4840)
+saving frame  290  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3302)
+saving frame  116
+processing frame Nr. 290
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.217212GB
+prompts in frame 290 : tensor([290, 287, 290, 275, 290, 290, 285])
+previous assign:  tensor([286, 287, 289, 275, 289, 285, 285])
+saving frame  291  with prompt  table with sheet on it _confidence tensor(0.3003)
+saving frame  291  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3157)
+saving frame  291  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5622)
+saving frame  291  with prompt  chair _confidence tensor(0.7570)
+saving frame  116
+processing frame Nr. 291
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216650GB
+prompts in frame 291 : tensor([290, 291, 291, 275, 291, 291, 285])
+previous assign:  tensor([290, 287, 290, 275, 290, 290, 285])
+saving frame  292  with prompt  a grey shelf with a pole on it _confidence tensor(0.3254)
+saving frame  292  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3229)
+saving frame  292  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5459)
+saving frame  292  with prompt  chair _confidence tensor(0.7963)
+saving frame  116
+processing frame Nr. 292
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216650GB
+prompts in frame 292 : tensor([292, 291, 292, 275, 292, 292, 285])
+previous assign:  tensor([290, 291, 291, 275, 291, 291, 285])
+saving frame  293  with prompt  table with sheet on it _confidence tensor(0.4504)
+saving frame  293  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3690)
+saving frame  293  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.4885)
+saving frame  293  with prompt  chair _confidence tensor(0.7622)
+saving frame  117
+processing frame Nr. 293
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216650GB
+prompts in frame 293 : tensor([292, 293, 293, 275, 293, 293, 285])
+previous assign:  tensor([292, 291, 292, 275, 292, 292, 285])
+saving frame  294  with prompt  a grey shelf with a pole on it _confidence tensor(0.3011)
+saving frame  294  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.2853)
+saving frame  294  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5408)
+saving frame  294  with prompt  chair _confidence tensor(0.8162)
+saving frame  117
+processing frame Nr. 294
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 294 : tensor([294, 294, 294, 275, 294, 294, 285])
+previous assign:  tensor([292, 293, 293, 275, 293, 293, 285])
+saving frame  295  with prompt  table with sheet on it _confidence tensor(0.4174)
+saving frame  295  with prompt  a grey shelf with a pole on it _confidence tensor(0.3356)
+saving frame  295  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.2897)
+saving frame  295  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5299)
+saving frame  295  with prompt  chair _confidence tensor(0.8700)
+saving frame  118
+processing frame Nr. 295
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217777GB
+prompts in frame 295 : tensor([294, 295, 295, 275, 295, 295, 285])
+previous assign:  tensor([294, 294, 294, 275, 294, 294, 285])
+saving frame  296  with prompt  a grey shelf with a pole on it _confidence tensor(0.3695)
+saving frame  296  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.4150)
+saving frame  296  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.6217)
+saving frame  296  with prompt  chair _confidence tensor(0.8923)
+saving frame  118
+processing frame Nr. 296
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217214GB
+prompts in frame 296 : tensor([294, 296, 296, 275, 296, 296, 285])
+previous assign:  tensor([294, 295, 295, 275, 295, 295, 285])
+saving frame  297  with prompt  a grey shelf with a pole on it _confidence tensor(0.3573)
+saving frame  297  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.2943)
+saving frame  297  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5183)
+saving frame  297  with prompt  chair _confidence tensor(0.8779)
+saving frame  118
+processing frame Nr. 297
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217775GB
+prompts in frame 297 : tensor([294, 297, 297, 275, 297, 297, 285])
+previous assign:  tensor([294, 296, 296, 275, 296, 296, 285])
+saving frame  298  with prompt  a grey shelf with a pole on it _confidence tensor(0.3019)
+saving frame  298  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3047)
+saving frame  298  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5345)
+saving frame  298  with prompt  chair _confidence tensor(0.8465)
+saving frame  119
+processing frame Nr. 298
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218338GB
+prompts in frame 298 : tensor([298, 297, 298, 275, 298, 298, 285])
+previous assign:  tensor([294, 297, 297, 275, 297, 297, 285])
+saving frame  299  with prompt  table with sheet on it _confidence tensor(0.3212)
+saving frame  299  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3080)
+saving frame  299  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3589)
+saving frame  299  with prompt  chair _confidence tensor(0.8742)
+saving frame  119
+processing frame Nr. 299
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217778GB
+prompts in frame 299 : tensor([299, 297, 299, 275, 299, 299, 285])
+previous assign:  tensor([298, 297, 298, 275, 298, 298, 285])
+saving frame  300  with prompt  table with sheet on it _confidence tensor(0.2954)
+saving frame  300  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3123)
+saving frame  300  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.4562)
+saving frame  300  with prompt  chair _confidence tensor(0.8769)
+saving frame  120
+processing frame Nr. 300
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218341GB
+prompts in frame 300 : tensor([300, 297, 300, 275, 300, 300, 300])
+previous assign:  tensor([299, 297, 299, 275, 299, 299, 285])
+saving frame  301  with prompt  table with sheet on it _confidence tensor(0.3050)
+saving frame  301  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3934)
+saving frame  301  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.4134)
+saving frame  301  with prompt  chair _confidence tensor(0.8835)
+saving frame  301  with prompt  monitor _confidence tensor(0.2737)
+saving frame  120
+processing frame Nr. 301
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217777GB
+prompts in frame 301 : tensor([301, 297, 301, 275, 301, 301, 301])
+previous assign:  tensor([300, 297, 300, 275, 300, 300, 300])
+saving frame  302  with prompt  table with sheet on it _confidence tensor(0.3027)
+saving frame  302  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3189)
+saving frame  302  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2919)
+saving frame  302  with prompt  chair _confidence tensor(0.8844)
+saving frame  302  with prompt  monitor _confidence tensor(0.2804)
+saving frame  120
+processing frame Nr. 302
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.215523GB
+prompts in frame 302 : tensor([301, 297, 302, 275, 302, 301, 301])
+previous assign:  tensor([301, 297, 301, 275, 301, 301, 301])
+saving frame  303  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3591)
+saving frame  303  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5163)
+saving frame  121
+processing frame Nr. 303
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216650GB
+prompts in frame 303 : tensor([303, 297, 302, 275, 302, 301, 301])
+previous assign:  tensor([301, 297, 302, 275, 302, 301, 301])
+saving frame  304  with prompt  table with sheet on it _confidence tensor(0.6762)
+saving frame  121
+processing frame Nr. 304
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.218905GB
+prompts in frame 304 : tensor([304, 304, 302, 275, 302, 304, 301])
+previous assign:  tensor([303, 297, 302, 275, 302, 301, 301])
+saving frame  305  with prompt  table with sheet on it _confidence tensor(0.2789)
+saving frame  305  with prompt  a grey shelf with a pole on it _confidence tensor(0.2973)
+saving frame  305  with prompt  chair _confidence tensor(0.2856)
+saving frame  122
+processing frame Nr. 305
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.219469GB
+prompts in frame 305 : tensor([305, 305, 302, 275, 302, 305, 305])
+previous assign:  tensor([304, 304, 302, 275, 302, 304, 301])
+saving frame  306  with prompt  table with sheet on it _confidence tensor(0.7141)
+saving frame  306  with prompt  a grey shelf with a pole on it _confidence tensor(0.3250)
+saving frame  306  with prompt  chair _confidence tensor(0.2833)
+saving frame  306  with prompt  monitor _confidence tensor(0.3863)
+saving frame  122
+processing frame Nr. 306
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.219468GB
+prompts in frame 306 : tensor([306, 306, 302, 275, 302, 306, 306])
+previous assign:  tensor([305, 305, 302, 275, 302, 305, 305])
+saving frame  307  with prompt  table with sheet on it _confidence tensor(0.7213)
+saving frame  307  with prompt  a grey shelf with a pole on it _confidence tensor(0.3526)
+saving frame  307  with prompt  chair _confidence tensor(0.3572)
+saving frame  307  with prompt  monitor _confidence tensor(0.4747)
+saving frame  122
+processing frame Nr. 307
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218341GB
+prompts in frame 307 : tensor([307, 307, 302, 275, 302, 307, 307])
+previous assign:  tensor([306, 306, 302, 275, 302, 306, 306])
+saving frame  308  with prompt  table with sheet on it _confidence tensor(0.6737)
+saving frame  308  with prompt  a grey shelf with a pole on it _confidence tensor(0.3526)
+saving frame  308  with prompt  chair _confidence tensor(0.5824)
+saving frame  308  with prompt  monitor _confidence tensor(0.2990)
+saving frame  123
+processing frame Nr. 308
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218904GB
+prompts in frame 308 : tensor([308, 308, 302, 275, 308, 308, 307])
+previous assign:  tensor([307, 307, 302, 275, 302, 307, 307])
+saving frame  309  with prompt  table with sheet on it _confidence tensor(0.6719)
+saving frame  309  with prompt  a grey shelf with a pole on it _confidence tensor(0.2832)
+saving frame  309  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2803)
+saving frame  309  with prompt  chair _confidence tensor(0.5559)
+saving frame  123
+processing frame Nr. 309
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217778GB
+prompts in frame 309 : tensor([309, 309, 309, 275, 308, 309, 309])
+previous assign:  tensor([308, 308, 302, 275, 308, 308, 307])
+saving frame  310  with prompt  table with sheet on it _confidence tensor(0.6462)
+saving frame  310  with prompt  a grey shelf with a pole on it _confidence tensor(0.3112)
+saving frame  310  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3758)
+saving frame  310  with prompt  chair _confidence tensor(0.5341)
+saving frame  310  with prompt  monitor _confidence tensor(0.3061)
+saving frame  124
+processing frame Nr. 310
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216650GB
+prompts in frame 310 : tensor([310, 309, 309, 275, 308, 309, 309])
+previous assign:  tensor([309, 309, 309, 275, 308, 309, 309])
+saving frame  311  with prompt  table with sheet on it _confidence tensor(0.2968)
+saving frame  124
+processing frame Nr. 311
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.214960GB
+prompts in frame 311 : tensor([310, 311, 311, 275, 308, 309, 309])
+previous assign:  tensor([310, 309, 309, 275, 308, 309, 309])
+saving frame  312  with prompt  a grey shelf with a pole on it _confidence tensor(0.2711)
+saving frame  312  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.2796)
+saving frame  124
+processing frame Nr. 312
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.214960GB
+prompts in frame 312 : tensor([310, 311, 311, 275, 312, 309, 312])
+previous assign:  tensor([310, 311, 311, 275, 308, 309, 309])
+saving frame  313  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3653)
+saving frame  313  with prompt  monitor _confidence tensor(0.4466)
+saving frame  125
+processing frame Nr. 313
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 313 : tensor([310, 311, 313, 275, 313, 309, 313])
+previous assign:  tensor([310, 311, 311, 275, 312, 309, 312])
+saving frame  314  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3152)
+saving frame  314  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3169)
+saving frame  314  with prompt  monitor _confidence tensor(0.4994)
+saving frame  125
+processing frame Nr. 314
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 314 : tensor([314, 311, 313, 275, 314, 314, 314])
+previous assign:  tensor([310, 311, 313, 275, 313, 309, 313])
+saving frame  315  with prompt  table with sheet on it _confidence tensor(0.7248)
+saving frame  315  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5349)
+saving frame  315  with prompt  chair _confidence tensor(0.3249)
+saving frame  315  with prompt  monitor _confidence tensor(0.5346)
+saving frame  126
+processing frame Nr. 315
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217211GB
+prompts in frame 315 : tensor([315, 311, 313, 275, 315, 315, 314])
+previous assign:  tensor([314, 311, 313, 275, 314, 314, 314])
+saving frame  316  with prompt  table with sheet on it _confidence tensor(0.7077)
+saving frame  316  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5916)
+saving frame  316  with prompt  chair _confidence tensor(0.2894)
+saving frame  126
+processing frame Nr. 316
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216648GB
+prompts in frame 316 : tensor([316, 311, 313, 275, 316, 316, 314])
+previous assign:  tensor([315, 311, 313, 275, 315, 315, 314])
+saving frame  317  with prompt  table with sheet on it _confidence tensor(0.6718)
+saving frame  317  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2941)
+saving frame  317  with prompt  chair _confidence tensor(0.5278)
+saving frame  126
+processing frame Nr. 317
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216648GB
+prompts in frame 317 : tensor([317, 311, 313, 275, 317, 317, 314])
+previous assign:  tensor([316, 311, 313, 275, 316, 316, 314])
+saving frame  318  with prompt  table with sheet on it _confidence tensor(0.6874)
+saving frame  318  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2810)
+saving frame  318  with prompt  chair _confidence tensor(0.5782)
+saving frame  127
+processing frame Nr. 318
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.217215GB
+prompts in frame 318 : tensor([318, 311, 313, 275, 318, 318, 318])
+previous assign:  tensor([317, 311, 313, 275, 317, 317, 314])
+saving frame  319  with prompt  table with sheet on it _confidence tensor(0.6547)
+saving frame  319  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2997)
+saving frame  319  with prompt  chair _confidence tensor(0.5552)
+saving frame  319  with prompt  monitor _confidence tensor(0.4416)
+saving frame  127
+processing frame Nr. 319
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.219463GB
+prompts in frame 319 : tensor([319, 319, 313, 275, 319, 319, 319])
+previous assign:  tensor([318, 311, 313, 275, 318, 318, 318])
+saving frame  320  with prompt  table with sheet on it _confidence tensor(0.5683)
+saving frame  320  with prompt  a grey shelf with a pole on it _confidence tensor(0.2747)
+saving frame  320  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.6069)
+saving frame  320  with prompt  chair _confidence tensor(0.3664)
+saving frame  320  with prompt  monitor _confidence tensor(0.3328)
+saving frame  128
+processing frame Nr. 320
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.219465GB
+prompts in frame 320 : tensor([320, 320, 313, 275, 320, 320, 320])
+previous assign:  tensor([319, 319, 313, 275, 319, 319, 319])
+saving frame  321  with prompt  table with sheet on it _confidence tensor(0.2995)
+saving frame  321  with prompt  a grey shelf with a pole on it _confidence tensor(0.4997)
+saving frame  321  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3083)
+saving frame  321  with prompt  chair _confidence tensor(0.5698)
+saving frame  321  with prompt  monitor _confidence tensor(0.3926)
+saving frame  128
+processing frame Nr. 321
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218904GB
+prompts in frame 321 : tensor([321, 321, 313, 275, 321, 321, 321])
+previous assign:  tensor([320, 320, 313, 275, 320, 320, 320])
+saving frame  322  with prompt  table with sheet on it _confidence tensor(0.4441)
+saving frame  322  with prompt  a grey shelf with a pole on it _confidence tensor(0.4331)
+saving frame  322  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.4327)
+saving frame  322  with prompt  chair _confidence tensor(0.2892)
+saving frame  322  with prompt  monitor _confidence tensor(0.3590)
+saving frame  128
+processing frame Nr. 322
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218341GB
+prompts in frame 322 : tensor([322, 322, 313, 275, 322, 322, 322])
+previous assign:  tensor([321, 321, 313, 275, 321, 321, 321])
+saving frame  323  with prompt  table with sheet on it _confidence tensor(0.4499)
+saving frame  323  with prompt  a grey shelf with a pole on it _confidence tensor(0.4377)
+saving frame  323  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.4004)
+saving frame  323  with prompt  chair _confidence tensor(0.5828)
+saving frame  323  with prompt  monitor _confidence tensor(0.3760)
+saving frame  129
+processing frame Nr. 323
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.218904GB
+prompts in frame 323 : tensor([323, 322, 313, 275, 323, 323, 323])
+previous assign:  tensor([322, 322, 313, 275, 322, 322, 322])
+saving frame  324  with prompt  table with sheet on it _confidence tensor(0.3044)
+saving frame  324  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.5304)
+saving frame  324  with prompt  chair _confidence tensor(0.3050)
+saving frame  324  with prompt  monitor _confidence tensor(0.3907)
+saving frame  129
+processing frame Nr. 324
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 324 : tensor([323, 324, 313, 275, 323, 323, 323])
+previous assign:  tensor([323, 322, 313, 275, 323, 323, 323])
+saving frame  325  with prompt  a grey shelf with a pole on it _confidence tensor(0.3152)
+saving frame  130
+processing frame Nr. 325
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217214GB
+prompts in frame 325 : tensor([323, 325, 313, 275, 323, 323, 323])
+previous assign:  tensor([323, 324, 313, 275, 323, 323, 323])
+saving frame  326  with prompt  a grey shelf with a pole on it _confidence tensor(0.3321)
+saving frame  130
+processing frame Nr. 326
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216648GB
+prompts in frame 326 : tensor([326, 326, 313, 275, 323, 323, 326])
+previous assign:  tensor([323, 325, 313, 275, 323, 323, 323])
+saving frame  327  with prompt  table with sheet on it _confidence tensor(0.4387)
+saving frame  327  with prompt  a grey shelf with a pole on it _confidence tensor(0.2837)
+saving frame  327  with prompt  monitor _confidence tensor(0.3216)
+saving frame  130
+processing frame Nr. 327
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.217775GB
+prompts in frame 327 : tensor([326, 326, 313, 275, 323, 327, 326])
+previous assign:  tensor([326, 326, 313, 275, 323, 323, 326])
+saving frame  328  with prompt  chair _confidence tensor(0.8428)
+saving frame  131
+processing frame Nr. 328
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216651GB
+prompts in frame 328 : tensor([326, 326, 313, 275, 323, 328, 328])
+previous assign:  tensor([326, 326, 313, 275, 323, 327, 326])
+saving frame  329  with prompt  chair _confidence tensor(0.8671)
+saving frame  329  with prompt  monitor _confidence tensor(0.2713)
+saving frame  131
+processing frame Nr. 329
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.217778GB
+prompts in frame 329 : tensor([326, 326, 313, 275, 323, 329, 329])
+previous assign:  tensor([326, 326, 313, 275, 323, 328, 328])
+saving frame  330  with prompt  chair _confidence tensor(0.8504)
+saving frame  330  with prompt  monitor _confidence tensor(0.3050)
+saving frame  132
+processing frame Nr. 330
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216651GB
+prompts in frame 330 : tensor([326, 326, 313, 275, 330, 330, 330])
+previous assign:  tensor([326, 326, 313, 275, 323, 329, 329])
+saving frame  331  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.2725)
+saving frame  331  with prompt  chair _confidence tensor(0.8332)
+saving frame  331  with prompt  monitor _confidence tensor(0.4224)
+saving frame  132
+processing frame Nr. 331
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216648GB
+prompts in frame 331 : tensor([326, 326, 313, 275, 331, 331, 331])
+previous assign:  tensor([326, 326, 313, 275, 330, 330, 330])
+saving frame  332  with prompt   ultra sound machine with a monitor on it _confidence tensor(0.3270)
+saving frame  332  with prompt  chair _confidence tensor(0.8161)
+saving frame  332  with prompt  monitor _confidence tensor(0.4494)
+saving frame  132
+processing frame Nr. 332
+get_prompt:  torch.cuda.memory_allocated: 4.212704GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 332 : tensor([326, 332, 313, 275, 331, 332, 332])
+previous assign:  tensor([326, 326, 313, 275, 331, 331, 331])
+saving frame  333  with prompt  a grey shelf with a pole on it _confidence tensor(0.2983)
+saving frame  333  with prompt  chair _confidence tensor(0.6161)
+saving frame  333  with prompt  monitor _confidence tensor(0.4375)
+saving frame  133
+processing frame Nr. 333
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216087GB
+prompts in frame 333 : tensor([326, 332, 313, 275, 331, 333, 332])
+previous assign:  tensor([326, 332, 313, 275, 331, 332, 332])
+saving frame  334  with prompt  chair _confidence tensor(0.6493)
+saving frame  133
+processing frame Nr. 334
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.216651GB
+prompts in frame 334 : tensor([326, 332, 334, 275, 331, 334, 332])
+previous assign:  tensor([326, 332, 313, 275, 331, 333, 332])
+saving frame  335  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3243)
+saving frame  335  with prompt  chair _confidence tensor(0.6997)
+saving frame  134
+processing frame Nr. 335
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+prompts in frame 335 : tensor([326, 332, 334, 275, 331, 334, 332])
+previous assign:  tensor([326, 332, 334, 275, 331, 334, 332])
+saving frame  134
+processing frame Nr. 336
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.217778GB
+prompts in frame 336 : tensor([326, 332, 336, 275, 331, 334, 336])
+previous assign:  tensor([326, 332, 334, 275, 331, 334, 332])
+saving frame  337  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.2711)
+saving frame  337  with prompt  monitor _confidence tensor(0.2986)
+saving frame  134
+processing frame Nr. 337
+get_prompt:  torch.cuda.memory_allocated: 4.212705GB
+formulate mask:  torch.cuda.memory_allocated: 4.217779GB
+prompts in frame 337 : tensor([337, 337, 337, 275, 331, 334, 337])
+previous assign:  tensor([326, 332, 336, 275, 331, 334, 336])
+saving frame  338  with prompt  table with sheet on it _confidence tensor(0.2831)
+saving frame  338  with prompt  a grey shelf with a pole on it _confidence tensor(0.3260)
+saving frame  338  with prompt  c arm, which is a medical machine with a large c shaped metal arm _confidence tensor(0.3606)
+saving frame  338  with prompt  monitor _confidence tensor(0.2730)
