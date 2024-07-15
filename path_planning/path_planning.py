@@ -34,16 +34,17 @@ def get_floor_grid(floor_points: np.ndarray,z_mean, grid_width_resolution:int = 
     width_res = int(np.ceil(bb.width/voxel_size))
     height_res = int(np.ceil(bb.height/voxel_size))
 
-    def coordinate_to_grid(x:float, y:float)->(int,int):
+    def coordinate_to_grid(x:float, y:float, z:float)->(int,int):
         return (
             int((x-bb.min_point[0])//voxel_size),
             int((y-bb.min_point[1])//voxel_size)
         )
 
-    def grid_to_coordinate(x:int , y:int)->(float,float):
+    def grid_to_coordinate(x:int , y:int)->(float,float, float):
         return (
             x*voxel_size+bb.min_point[0],
-            y*voxel_size+bb.min_point[1]
+            y*voxel_size+bb.min_point[1],
+            z_mean+OBSTACLE_HEIGHT
         )
 
     mask = floor_points[:,2]>threshold
@@ -52,7 +53,7 @@ def get_floor_grid(floor_points: np.ndarray,z_mean, grid_width_resolution:int = 
 
     grid = np.zeros((width_res, height_res))
     for i in floor_points:
-        x, y = coordinate_to_grid(i[0],i[1])
+        x, y = coordinate_to_grid(i[0],i[1], i[2])
         grid[x,y]=1
 
 
@@ -73,7 +74,7 @@ def get_z_norm_of_plane(a:float, b:float, c:float, d:float, points: np.ndarray)-
         np.ndarray: the normal vector of the plane where it points upwards
     """
     norm_z = np.array([a,b,c])
-    norm_z = np.linalg.norm(norm_z)
+    norm_z = norm_z / np.linalg.norm(norm_z)
     #sample 20 points from the point cloud
     # and align the norm z so that the projected mean of the ten sampled points are positive
     samples = np.random.randint(0,len(points)-1, 20)
@@ -85,6 +86,7 @@ def get_z_norm_of_plane(a:float, b:float, c:float, d:float, points: np.ndarray)-
 
 def rotation_matrix_from_vectors(vec1, vec2):
     """ Find the rotation matrix that aligns vec1 to vec2 """
+
     a, b = (vec1 / np.linalg.norm(vec1)).reshape(3), (vec2 / np.linalg.norm(vec2)).reshape(3)
     v = np.cross(a, b)
     c = np.dot(a, b)
@@ -157,11 +159,72 @@ def astar(floor_grid, start_point, end_point):
     #if there is no path: return the start and end point
     return [start_point, end_point]
 
+def get_object_grid_coordinates(coords:np.ndarray, coord_to_grid:callable)->np.ndarray:
+    """
+    Get the grid coordinates of the object
+    Args:
+        coords: np.ndarray: the 3d coordinates of the object (N,3)
+        coord_to_grid: callable: (x,y,z)->(x,y) a function that converts the 3d coordinates to grid coordinates
+        grid: np.ndarray
+
+    Returns:
+        np.ndarray: the grid coordinates of the object
+    """
+    grid_coords = []
+    for i in coords:
+        x, y = coord_to_grid(i[0],i[1], i[2])
+        grid_coords.append((x,y))
+    return np.array(grid_coords)
+
+def get_starting_point(grid_coords:np.ndarray, grid:np.ndarray)->(int,int):
+    """
+    Get the starting point of the path planning that is not an obstacle
+    Args:
+        grid_coords: np.ndarray: the grid coordinates of the object
+        grid: np.ndarray: the floor grid
+
+    Returns:
+        (int,int): the starting point of the path planning
+    """
+
+    coords_center = grid_coords.mean(axis=0)
+    coords_center = (int(coords_center[0]), int(coords_center[1]))
+    #get the coordinate of the opposing corner
+    #the coordinate of the four corners of the grid
+    corners = [(0,0),(0,grid.shape[1]),(grid.shape[0],0),(grid.shape[0],grid.shape[1])]
+    #get the corner that is fartherst to the center of the object
+    corner = max(corners, key=lambda x: np.linalg.norm(np.array(x)-np.array(coords_center)))
+    #get the first grid cell between the center of the grid and the center of the object that is not an obstacle
+
+    #get all the grid cells between the center of the grid and the center of the object
+    if corner[0] > coords_center[0]:
+        region_x = np.arange(coords_center[0], corner[0])
+    else:
+        region_x = np.arange(coords_center[0], corner[0], -1)
+    if corner[1] > coords_center[1]:
+        region_y = np.arange(coords_center[1], corner[1])
+    else:
+        region_y = np.arange(coords_center[1], corner[1], -1)
+    #get the cell closest to the obstacle of the grid that is not an obstacle
+    distance = np.inf
+    res = None
+    for i in region_x:
+        for j in region_y:
+
+            if grid[i,j] == 0:
+               d = np.linalg.norm(np.array([i,j])-np.array(coords_center))
+               if d < distance:
+                   distance = d
+                   res = (i,j)
+    return res
+
+
 class ObjectManager:
-    def __init__(self, seg_mask:dict, point_cloud:o3d.geometry.PointCloud):
+    def __init__(self, seg_mask:dict, point_cloud:np.ndarray, coord_to_grid:callable):
         self.masks = seg_mask['ins']
         self.classes = [int(i) for i in seg_mask['final_class']]
-        self.points = np.asarray(point_cloud.points)
+        self.points = point_cloud
+        self.coor_to_grid = coord_to_grid
     def get_obj_coordinate(self, obj_id:int)->np.ndarray:
         """
         Get the coordinate of the object
@@ -174,6 +237,7 @@ class ObjectManager:
         """
         if obj_id not in self.classes:
             return None
+
         #if there is an object with the id
 
 
